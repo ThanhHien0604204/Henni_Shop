@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Henni Admin - Quản Trị Hệ Thống</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body style="background-color: #faf7f2; margin: 0; padding: 0;">
+
+  <div class="admin-app-layout">
+    <!-- 1. LEFT SIDEBAR (Khớp 100% Ảnh 2) -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <!-- Brand Logo Header -->
+      <div class="admin-sidebar-brand">
+        <a href="index.html" class="admin-sidebar-logo">Henni</a>
+        <span class="admin-sidebar-badge">QUẢN TRỊ</span>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="admin-sidebar-menu">
+        <button type="button" class="admin-sidebar-link active" data-target="dashboard" onclick="switchAdminTab('dashboard', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+            <path d="M12 12l3-3"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button type="button" class="admin-sidebar-link" data-target="products" onclick="switchAdminTab('products', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+          </svg>
+          <span>Sản phẩm</span>
+        </button>
+
+        <button type="button" class="admin-sidebar-link" data-target="categories" onclick="switchAdminTab('categories', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+          <span>Danh mục</span>
+        </button>
+
+        <button type="button" class="admin-sidebar-link" data-target="orders" onclick="switchAdminTab('orders', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span>Đơn hàng</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Bottom Actions -->
+      <div class="admin-sidebar-footer">
+        <a href="index.html" class="admin-sidebar-link admin-sidebar-link-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"/>
+            <polyline points="12 19 5 12 12 5"/>
+          </svg>
+          <span>Về cửa hàng</span>
+        </a>
+
+        <button type="button" class="admin-sidebar-link admin-sidebar-link-logout" onclick="window.Auth ? window.Auth.logout() : window.location.href='dang-nhap.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span>Đăng xuất</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- 2. MAIN CONTENT WRAPPER -->
+    <div class="admin-main">
+      <!-- Topbar Header -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button type="button" class="admin-mobile-toggle" id="admin-mobile-toggle" aria-label="Toggle Sidebar">
+            &#9776;
+          </button>
+          <h1 class="admin-topbar-title">Henni Admin</h1>
+        </div>
+
+        <div class="admin-topbar-right">
+          <button type="button" class="btn btn-sm btn-outline" id="btn-reset-db" title="Khôi phục cơ sở dữ liệu mẫu ban đầu" style="font-size: 0.78rem; padding: 5px 10px; border-color: #d1c7bc; color: #78563a;">
+            Khôi phục CSDL
+          </button>
+          <div class="admin-user-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span id="admin-current-user-name">Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Container -->
+      <main class="admin-content">
+        <!-- VIEW 1: DASHBOARD (Khớp 100% Ảnh 2) -->
+        <section id="view-dashboard" class="admin-view-panel active">
+          <h2 class="admin-view-title">Dashboard</h2>
+
+          <!-- 4 Stat Cards Row -->
+          <div class="admin-stat-row">
+            <!-- Card 1: Sản phẩm -->
+            <div class="admin-stat-card-new" style="cursor: pointer;" onclick="switchAdminTab('products')">
+              <div class="admin-stat-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+                </svg>
+              </div>
+              <div class="admin-stat-info">
+                <span class="admin-stat-number" id="stat-total-products">20</span>
+                <span class="admin-stat-text">Sản phẩm</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Danh mục -->
+            <div class="admin-stat-card-new" style="cursor: pointer;" onclick="switchAdminTab('categories')">
+              <div class="admin-stat-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+              </div>
+              <div class="admin-stat-info">
+                <span class="admin-stat-number" id="stat-total-categories">4</span>
+                <span class="admin-stat-text">Danh mục</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Đơn hàng -->
+            <div class="admin-stat-card-new" style="cursor: pointer;" onclick="switchAdminTab('orders')">
+              <div class="admin-stat-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+              </div>
+              <div class="admin-stat-info">
+                <span class="admin-stat-number" id="stat-total-orders">1</span>
+                <span class="admin-stat-text" id="stat-orders-detail-text">Đơn hàng (0 chờ xử lý)</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Doanh thu -->
+            <div class="admin-stat-card-new">
+              <div class="admin-stat-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M14.8 9A2 2 0 0 0 13 8h-2a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-2a2 2 0 0 1-1.8-1"/>
+                  <path d="M12 6v2m0 8v2"/>
+                </svg>
+              </div>
+              <div class="admin-stat-info">
+                <span class="admin-stat-number" id="stat-total-revenue">710.000₫</span>
+                <span class="admin-stat-text">Doanh thu (trừ đơn đã hủy)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Đơn hàng gần đây (Khớp 100% Ảnh 2) -->
+          <div class="admin-section-header">
+            <h3 class="admin-section-title">Đơn hàng gần đây</h3>
+            <a href="javascript:void(0)" class="admin-link-all" onclick="switchAdminTab('orders')">Xem tất cả</a>
+          </div>
+
+          <div class="admin-card-container">
+            <table class="admin-recent-table">
+              <thead>
+                <tr>
+                  <th>MÃ ĐƠN</th>
+                  <th>KHÁCH HÀNG</th>
+                  <th>TỔNG TIỀN</th>
+                  <th>TRẠNG THÁI</th>
+                </tr>
+              </thead>
+              <tbody id="admin-recent-orders-tbody">
+                <!-- Render từ admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- VIEW 2: QUẢN LÝ SẢN PHẨM -->
+        <section id="view-products" class="admin-view-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <h2 class="admin-view-title" style="margin-bottom: 4px;">Quản Lý Sản Phẩm</h2>
+              <p class="text-muted" style="margin: 0; font-size: 0.88rem;">Danh mục sản phẩm lưu trữ an toàn trong bảng SQLite `products`.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="openAddProductModal()" style="display: inline-flex; align-items: center; gap: 6px;">
+              <span>&plus;</span> Thêm sản phẩm mới
+            </button>
+          </div>
+
+          <div class="admin-panel-card">
+            <div style="display: flex; gap: 14px; margin-bottom: 20px; flex-wrap: wrap;">
+              <input type="text" id="admin-product-search" class="form-control" placeholder="Tìm kiếm tên sản phẩm..." style="max-width: 320px;" oninput="filterAdminProducts()">
+              <select id="admin-product-cat-filter" class="form-select" style="max-width: 200px;" onchange="filterAdminProducts()">
+                <option value="">Tất cả danh mục</option>
+              </select>
+            </div>
+
+            <div class="admin-table-wrapper">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;">ID</th>
+                    <th style="width: 60px;">ẢNH</th>
+                    <th>TÊN SẢN PHẨM</th>
+                    <th>DANH MỤC</th>
+                    <th>GIÁ BÁN</th>
+                    <th style="text-align: right; width: 140px;">THAO TÁC</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-products-tbody">
+                  <!-- Render từ admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 3: QUẢN LÝ DANH MỤC -->
+        <section id="view-categories" class="admin-view-panel">
+          <div style="margin-bottom: 24px;">
+            <h2 class="admin-view-title" style="margin-bottom: 4px;">Quản Lý Danh Mục</h2>
+            <p class="text-muted" style="margin: 0; font-size: 0.88rem;">Phân loại sản phẩm thời trang Henni trong bảng `categories`.</p>
+          </div>
+
+          <div class="admin-panel-card">
+            <div class="admin-table-wrapper">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th>TÊN DANH MỤC</th>
+                    <th>SLUG</th>
+                    <th style="text-align: center; width: 140px;">SỐ LƯỢNG SP</th>
+                    <th style="text-align: center; width: 140px;">TRẠNG THÁI</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-categories-tbody">
+                  <!-- Render từ admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: QUẢN LÝ ĐƠN HÀNG -->
+        <section id="view-orders" class="admin-view-panel">
+          <div style="margin-bottom: 24px;">
+            <h2 class="admin-view-title" style="margin-bottom: 4px;">Quản Lý Đơn Hàng</h2>
+            <p class="text-muted" style="margin: 0; font-size: 0.88rem;">Theo dõi đơn hàng, cập nhật tiến độ giao vận trong bảng `orders`.</p>
+          </div>
+
+          <div class="admin-panel-card">
+            <div class="admin-table-wrapper">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>MÃ ĐƠN</th>
+                    <th>KHÁCH HÀNG</th>
+                    <th>NGÀY ĐẶT</th>
+                    <th>TỔNG TIỀN</th>
+                    <th>TRẠNG THÁI</th>
+                    <th style="text-align: right; width: 100px;">CHI TIẾT</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-orders-tbody">
+                  <!-- Render từ admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal Thêm / Chỉnh Sửa Sản Phẩm -->
+  <div class="search-modal-backdrop" id="product-modal-backdrop">
+    <div class="search-modal-card" style="max-width: 680px; padding: 28px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 14px; margin-bottom: 20px;">
+        <h3 id="product-modal-title" style="font-size: 1.25rem; font-weight: 700;">Thêm sản phẩm mới</h3>
+        <button type="button" onclick="closeProductModal()" style="font-size: 1.3rem; color: var(--text-muted);">&times;</button>
+      </div>
+
+      <form id="product-edit-form">
+        <div class="form-group">
+          <label class="form-label required">Tên sản phẩm</label>
+          <input type="text" name="name" class="form-control" placeholder="Ví dụ: Áo Sơ Mi Linen Kẻ Sọc" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Slug (tùy chọn)</label>
+            <input type="text" name="slug" class="form-control" placeholder="ao-so-mi-linen-ke-soc">
+          </div>
+          <div class="form-group">
+            <label class="form-label required">Danh mục</label>
+            <select name="category_id" id="prod-form-category" class="form-select" required></select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label required">Giá cơ bản (VNĐ)</label>
+            <input type="number" name="base_price" class="form-control" placeholder="490000" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Giá khuyến mãi (VNĐ - nếu có)</label>
+            <input type="number" name="sale_price" class="form-control" placeholder="Để trống nếu không giảm">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Màu sắc (phân tách bởi dấu phẩy)</label>
+            <input type="text" name="colors" class="form-control" placeholder="Trắng, Đen, Be, Xanh dương">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kích thước (phân tách bởi dấu phẩy)</label>
+            <input type="text" name="sizes" class="form-control" placeholder="S, M, L, Freesize">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Đường dẫn ảnh (mỗi dòng một đường dẫn ảnh)</label>
+          <textarea name="images" class="form-control" rows="3" placeholder="images/ao/01.jpg"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mô tả sản phẩm</label>
+          <textarea name="description" class="form-control" rows="3" placeholder="Mô tả chất liệu cao cấp, kiểu dáng thanh lịch..."></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; border-top: 1px solid var(--border-light); padding-top: 16px;">
+          <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Hủy bỏ</button>
+          <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DB Loading Overlay -->
+  <div id="db-loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Đang nạp dữ liệu cửa hàng...</div>
+    <div class="loading-subtext">Hệ thống đang tải cơ sở dữ liệu SQLite qua WebAssembly (sql.js)...</div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

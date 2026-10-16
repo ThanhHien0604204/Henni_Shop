@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập & Đăng Ký | Henni Shop - Thời Trang Nữ Tinh Tế</title>
+  <meta name="description" content="Đăng nhập tài khoản thành viên Henni Shop để quản lý đơn hàng hoặc truy cập cổng quản trị hệ thống.">
+
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 1. Top Announcement Bar -->
+  <div class="top-announcement">
+    MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC CHO ĐƠN HÀNG TỪ 800.000₫ • ĐỔI TRẢ TRONG VÒNG 7 NGÀY
+  </div>
+
+  <!-- 2. Header Chính -->
+  <header class="site-header">
+    <div class="container header-container">
+      <!-- Nút Mobile Menu -->
+      <button type="button" class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Menu">
+        &#9776;
+      </button>
+
+      <!-- Logo thương hiệu -->
+      <a href="index.html" class="brand-logo-link">
+        <img src="images/logo.png" alt="Henni Shop Logo" class="brand-logo-img" onerror="this.style.display='none'; document.getElementById('brand-text-logo').style.display='block';">
+        <span id="brand-text-logo" class="brand-fallback-text" style="display: none;">HENNI</span>
+      </a>
+
+      <!-- Menu Điều Hướng -->
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html" class="nav-link">TRANG CHỦ</a>
+        <a href="san-pham.html" class="nav-link">TẤT CẢ SẢN PHẨM</a>
+        <div class="nav-item-dropdown">
+          <a href="san-pham.html" class="nav-link nav-dropdown-toggle" id="nav-collection-toggle">
+            BỘ SƯU TẬP <span class="nav-dropdown-arrow">▾</span>
+          </a>
+          <div class="nav-dropdown-menu">
+            <a href="san-pham.html?category=ao">Áo kiểu & Sơ mi</a>
+            <a href="san-pham.html?category=quan-1">Quần tây & Short</a>
+            <a href="san-pham.html?category=chan-vay">Chân váy</a>
+            <a href="san-pham.html?category=vay">Đầm thiết kế</a>
+          </div>
+        </div>
+        <a href="ve-chung-toi.html" class="nav-link">VỀ CHÚNG TÔI</a>
+      </nav>
+      <div class="nav-mobile-backdrop" id="nav-mobile-backdrop"></div>
+
+      <!-- Tác vụ bên phải -->
+      <div class="header-actions">
+        <!-- Tìm kiếm -->
+        <button type="button" class="header-action-btn" id="open-search-modal" title="Tìm kiếm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+        <!-- Tài khoản người dùng -->
+        <div class="user-menu-wrapper">
+          <button type="button" class="user-action-btn active" id="header-user-btn" title="Tài khoản">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </button>
+          <div class="user-dropdown-menu" id="user-dropdown-menu"></div>
+        </div>
+
+        <!-- Giỏ hàng -->
+        <a href="gio-hang.html" class="header-action-btn cart-icon-btn" title="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Nội dung trang Đăng Nhập & Đăng Ký -->
+  <main class="section-py" style="background-color: var(--bg-primary);">
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs" style="margin-bottom: 24px;">
+        <a href="index.html">Trang chủ</a>
+        <span>/</span>
+        <span id="breadcrumb-current">Đăng nhập tài khoản</span>
+      </div>
+
+      <div class="auth-page-section">
+        <div class="auth-card-wrapper">
+          <!-- 2 Tab Chuyển đổi -->
+          <div class="auth-tabs-header">
+            <button type="button" class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')">
+              Đăng nhập
+            </button>
+            <button type="button" class="auth-tab-btn" id="tab-btn-register" onclick="switchAuthTab('register')">
+              Đăng ký
+            </button>
+          </div>
+
+          <div class="auth-card-body">
+            <!-- Alert Thông báo -->
+            <div class="auth-alert-box" id="auth-alert"></div>
+
+            <!-- TAB 1: FORM ĐĂNG NHẬP -->
+            <form id="form-login" onsubmit="handleLoginSubmit(event)">
+              <div class="auth-form-group">
+                <label class="auth-form-label" for="login-username">Tên đăng nhập hoặc Email <span style="color: #dc2626;">*</span></label>
+                <input type="text" class="auth-form-input" id="login-username" placeholder="Nhập username hoặc email..." required autofocus>
+              </div>
+
+              <div class="auth-form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <label class="auth-form-label" for="login-password" style="margin-bottom: 0;">Mật khẩu <span style="color: #dc2626;">*</span></label>
+                  <a href="#" onclick="event.preventDefault(); showToast('Vui lòng liên hệ Hotline 0988.123.456 hoặc dùng tài khoản mẫu bên dưới để lấy lại mật khẩu!', 'info');" style="font-size: 0.78rem; color: #c4a07c; text-decoration: none;">
+                    Quên mật khẩu?
+                  </a>
+                </div>
+                <div class="auth-input-wrapper">
+                  <input type="password" class="auth-form-input" id="login-password" placeholder="Nhập mật khẩu..." required>
+                  <button type="button" class="auth-toggle-pwd-btn" onclick="togglePasswordVisibility('login-password', this)" title="Ẩn/hiện mật khẩu">
+                    👁️
+                  </button>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.85rem;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="login-remember" checked style="accent-color: #c4a07c;">
+                  Ghi nhớ đăng nhập
+                </label>
+              </div>
+
+              <button type="submit" class="auth-btn-submit" id="btn-login-submit">
+                ĐĂNG NHẬP
+              </button>
+
+              <!-- Box Tài khoản Admin tạo cứng & Tài khoản mẫu -->
+              <div class="auth-demo-box">
+                <div class="auth-demo-title">
+                  <span>👑</span> <strong>Tài khoản hệ thống tạo sẵn:</strong>
+                </div>
+                
+                <div class="auth-demo-row">
+                  <div>
+                    <strong style="color: #111827;">Admin:</strong> <code>admin</code> / <code>admin123</code>
+                    <div style="font-size: 0.72rem; color: #c4a07c;">(Dành riêng cho trang Quản trị Admin Panel)</div>
+                  </div>
+                  <button type="button" class="auth-demo-fill-btn" onclick="fillDemoCredentials('admin', 'admin123')">
+                    Điền nhanh
+                  </button>
+                </div>
+
+                <div class="auth-demo-row">
+                  <div>
+                    <strong style="color: #111827;">Khách hàng:</strong> <code>khachhang</code> / <code>123456</code>
+                    <div style="font-size: 0.72rem; color: #6b7280;">(Thành viên mua sắm thông thường)</div>
+                  </div>
+                  <button type="button" class="auth-demo-fill-btn" onclick="fillDemoCredentials('khachhang', '123456')">
+                    Điền nhanh
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- TAB 2: FORM ĐĂNG KÝ -->
+            <form id="form-register" style="display: none;" onsubmit="handleRegisterSubmit(event)">
+              <div class="auth-form-group">
+                <label class="auth-form-label" for="reg-fullname">Họ và tên <span style="color: #dc2626;">*</span></label>
+                <input type="text" class="auth-form-input" id="reg-fullname" placeholder="Ví dụ: Nguyễn Phương Linh" required>
+              </div>
+
+              <div class="auth-form-group">
+                <label class="auth-form-label" for="reg-username">Tên đăng nhập <span style="color: #dc2626;">*</span></label>
+                <input type="text" class="auth-form-input" id="reg-username" placeholder="Chỉ chữ cái, số (tối thiểu 4 ký tự)..." required pattern="[a-zA-Z0-9_]{4,20}">
+              </div>
+
+              <div class="auth-form-group">
+                <label class="auth-form-label" for="reg-email">Địa chỉ Email <span style="color: #dc2626;">*</span></label>
+                <input type="email" class="auth-form-input" id="reg-email" placeholder="Ví dụ: phuonglinh@gmail.com" required>
+              </div>
+
+              <div class="auth-form-group">
+                <label class="auth-form-label" for="reg-phone">Số điện thoại</label>
+                <input type="tel" class="auth-form-input" id="reg-phone" placeholder="Ví dụ: 0912.345.678">
+              </div>
+
+              <div class="auth-form-group">
+                <label class="auth-form-label" for="reg-password">Mật khẩu <span style="color: #dc2626;">*</span></label>
+                <div class="auth-input-wrapper">
+                  <input type="password" class="auth-form-input" id="reg-password" placeholder="Tối thiểu 6 ký tự..." required minlength="6">
+                  <button type="button" class="auth-toggle-pwd-btn" onclick="togglePasswordVisibility('reg-password', this)" title="Ẩn/hiện mật khẩu">
+                    👁️
+                  </button>
+                </div>
+              </div>
+
+              <div class="auth-form-group">
+                <label class="auth-form-label" for="reg-password-confirm">Xác nhận mật khẩu <span style="color: #dc2626;">*</span></label>
+                <div class="auth-input-wrapper">
+                  <input type="password" class="auth-form-input" id="reg-password-confirm" placeholder="Nhập lại mật khẩu..." required minlength="6">
+                  <button type="button" class="auth-toggle-pwd-btn" onclick="togglePasswordVisibility('reg-password-confirm', this)" title="Ẩn/hiện mật khẩu">
+                    👁️
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" class="auth-btn-submit" id="btn-register-submit">
+                TẠO TÀI KHOẢN NGAY
+              </button>
+
+              <div style="text-align: center; margin-top: 18px; font-size: 0.85rem; color: var(--text-secondary);">
+                Đã có tài khoản? 
+                <a href="#" onclick="event.preventDefault(); switchAuthTab('login');" style="color: #c4a07c; font-weight: 700; text-decoration: none;">
+                  Đăng nhập ngay
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 4. Footer Chân Trang -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Cột 1 -->
+        <div>
+          <h4 class="footer-col-title">Henni Shop</h4>
+          <p class="footer-desc">
+            Thương hiệu thời trang nữ phong cách Minimalist Chic hiện đại, đề cao sự tinh tế, chuẩn mực đường may và tính ứng dụng cao cho phái đẹp.
+          </p>
+          <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8;">
+            <div>📍 Địa chỉ: 128 Đường Thời Trang, Quận 1, TP. Hồ Chí Minh</div>
+            <div>📞 Hotline: 0988.123.456</div>
+            <div>✉️ Email: contact@hennishop.vn</div>
+          </div>
+        </div>
+
+        <!-- Cột 2 -->
+        <div>
+          <h4 class="footer-col-title">Danh mục</h4>
+          <ul class="footer-links-list">
+            <li><a href="san-pham.html?category=ao">Áo kiểu & Sơ mi</a></li>
+            <li><a href="san-pham.html?category=quan-1">Quần tây & Quần short</a></li>
+            <li><a href="san-pham.html?category=chan-vay">Chân váy ngắn & Chân váy dài</a></li>
+            <li><a href="san-pham.html?category=vay">Đầm thiết kế</a></li>
+            <li><a href="san-pham.html">Tất cả sản phẩm</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 3 -->
+        <div>
+          <h4 class="footer-col-title">Hỗ trợ khách hàng</h4>
+          <ul class="footer-links-list">
+            <li><a href="ve-chung-toi.html">Về chúng tôi</a></li>
+            <li><a href="don-hang.html">Tra cứu đơn hàng</a></li>
+            <li><a href="dang-nhap.html">Đăng nhập / Đăng ký</a></li>
+            <li><a href="#">Chính sách đổi trả 7 ngày</a></li>
+            <li><a href="#">Hướng dẫn chọn kích cỡ</a></li>
+            <li><a href="#">Chính sách vận chuyển</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 4 -->
+        <div>
+          <h4 class="footer-col-title">Nhận bản tin ưu đãi</h4>
+          <p class="footer-desc">
+            Đăng ký để nhận thông tin bộ sưu tập mới nhất và voucher giảm giá 10% cho đơn hàng đầu tiên.
+          </p>
+          <form class="footer-newsletter-form" onsubmit="event.preventDefault(); showToast('Cảm ơn bạn đã đăng ký nhận bản tin!', 'success'); this.reset();">
+            <input type="email" class="footer-newsletter-input" placeholder="Nhập email của bạn..." required>
+            <button type="submit" class="btn btn-primary btn-sm">Gửi</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Henni Shop. Tất cả các quyền được bảo lưu. Thiết kế giao diện thuần chuẩn mực Front-end.</div>
+        <div>Cơ sở dữ liệu SQLite Client-side với WebAssembly (sql.js)</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Search Modal -->
+  <div class="search-modal-backdrop" id="search-modal-backdrop">
+    <div class="search-modal-card">
+      <div class="search-input-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input-box" id="search-modal-input" placeholder="Tìm kiếm áo, quần, chân váy, đầm...">
+        <button type="button" class="search-close-btn" id="close-search-modal">&times;</button>
+      </div>
+      <div class="search-results-list" id="search-modal-results"></div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="db-loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Đang nạp dữ liệu cửa hàng...</div>
+    <div class="loading-subtext">Hệ thống đang tải cơ sở dữ liệu SQLite qua WebAssembly (sql.js)...</div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- WebAssembly sql.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
+  <!-- Database & Core App -->
+  <script src="js/database.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Logic Trang Đăng Nhập / Đăng Ký -->
+  <script>
+    // Chuyển tab giữa Đăng nhập & Đăng ký
+    function switchAuthTab(tab) {
+      const loginTabBtn = document.getElementById('tab-btn-login');
+      const regTabBtn = document.getElementById('tab-btn-register');
+      const loginForm = document.getElementById('form-login');
+      const regForm = document.getElementById('form-register');
+      const breadcrumb = document.getElementById('breadcrumb-current');
+      const alertBox = document.getElementById('auth-alert');
+
+      if (alertBox) {
+        alertBox.className = 'auth-alert-box';
+        alertBox.textContent = '';
+      }
+
+      if (tab === 'register') {
+        loginTabBtn.classList.remove('active');
+        regTabBtn.classList.add('active');
+        loginForm.style.display = 'none';
+        regForm.style.display = 'block';
+        if (breadcrumb) breadcrumb.textContent = 'Đăng ký tài khoản';
+        document.getElementById('reg-fullname').focus();
+      } else {
+        regTabBtn.classList.remove('active');
+        loginTabBtn.classList.add('active');
+        regForm.style.display = 'none';
+        loginForm.style.display = 'block';
+        if (breadcrumb) breadcrumb.textContent = 'Đăng nhập tài khoản';
+        document.getElementById('login-username').focus();
+      }
+    }
+
+    // Điền nhanh thông tin tài khoản mẫu
+    function fillDemoCredentials(user, pass) {
+      document.getElementById('login-username').value = user;
+      document.getElementById('login-password').value = pass;
+      showAuthAlert(`Đã điền tài khoản mẫu ${user === 'admin' ? 'Quản trị viên (Admin)' : 'Khách hàng'}. Bạn có thể bấm ĐĂNG NHẬP ngay!`, 'warning');
+    }
+
+    // Ẩn/Hiện mật khẩu
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁️';
+      }
+    }
+
+    // Hiển thị thông báo Alert
+    function showAuthAlert(message, type = 'error') {
+      const box = document.getElementById('auth-alert');
+      if (!box) return;
+      box.className = `auth-alert-box auth-alert-${type} show`;
+      box.textContent = message;
+    }
+
+    // Xử lý gửi Form Đăng Nhập
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      const usernameInput = document.getElementById('login-username').value.trim();
+      const passwordInput = document.getElementById('login-password').value;
+      const remember = document.getElementById('login-remember').checked;
+
+      const result = window.Auth.login(usernameInput, passwordInput);
+      if (!result.success) {
+        showAuthAlert(result.message, 'error');
+        return;
+      }
+
+      const user = result.user;
+      window.Auth.setCurrentUser(user, remember);
+
+      const redirectUrl = getUrlParam('redirect');
+      const isAdm = user.role === 'admin' || user.username === 'admin';
+
+      if (redirectUrl && redirectUrl.includes('admin.html') && !isAdm) {
+        showAuthAlert('Đăng nhập thành công, nhưng tài khoản này không có quyền Quản trị viên (Admin) để vào Admin Panel!', 'warning');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+        return;
+      }
+
+      showToast(`Xin chào, ${user.full_name || user.username}! Đăng nhập thành công.`, 'success');
+
+      setTimeout(() => {
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        } else if (isAdm) {
+          window.location.href = 'admin.html';
+        } else {
+          window.location.href = 'index.html';
+        }
+      }, 500);
+    }
+
+    // Xử lý gửi Form Đăng Ký
+    function handleRegisterSubmit(event) {
+      event.preventDefault();
+      const fullName = document.getElementById('reg-fullname').value.trim();
+      const username = document.getElementById('reg-username').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const passwordConfirm = document.getElementById('reg-password-confirm').value;
+
+      if (password !== passwordConfirm) {
+        showAuthAlert('Mật khẩu và xác nhận mật khẩu không trùng khớp!', 'error');
+        return;
+      }
+
+      const result = window.Auth.register({
+        fullName,
+        username,
+        email,
+        phone,
+        password
+      });
+
+      if (!result.success) {
+        showAuthAlert(result.message, 'error');
+        return;
+      }
+
+      showToast('Chúc mừng bạn đã tạo tài khoản thành công! Đang chuyển sang đăng nhập...', 'success');
+      
+      // Tự động chuyển sang tab đăng nhập và điền sẵn username
+      setTimeout(() => {
+        switchAuthTab('login');
+        document.getElementById('login-username').value = username;
+        document.getElementById('login-password').value = password;
+        showAuthAlert('Tài khoản đã sẵn sàng! Vui lòng bấm Đăng nhập để tiếp tục.', 'success');
+      }, 700);
+    }
+
+    // Khởi tạo kiểm tra tham số URL khi tải trang
+    document.addEventListener('DOMContentLoaded', () => {
+      const mode = getUrlParam('mode');
+      if (mode === 'register') {
+        switchAuthTab('register');
+      }
+
+      const redirect = getUrlParam('redirect');
+      const unauthorized = getUrlParam('unauthorized');
+
+      if (redirect && redirect.includes('admin.html') || unauthorized === '1') {
+        showAuthAlert('⚠️ Khu vực Quản Trị Viên! Vui lòng đăng nhập với tài khoản Admin để truy cập Admin Panel.', 'warning');
+        fillDemoCredentials('admin', 'admin123');
+      }
+
+      // Nếu đã đăng nhập trước đó và là admin
+      const currentUser = window.Auth.getCurrentUser();
+      if (currentUser) {
+        if (currentUser.role === 'admin' || currentUser.username === 'admin') {
+          showAuthAlert(`Bạn đang đăng nhập với tư cách Quản Trị Viên (${currentUser.username}).`, 'success');
+        } else {
+          showAuthAlert(`Bạn đang đăng nhập với tài khoản: ${currentUser.full_name} (${currentUser.username}).`, 'success');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

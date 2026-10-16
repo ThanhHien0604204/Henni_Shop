@@ -1,0 +1,236 @@
+/* ==========================================================================
+   HENNI SHOP - RESPONSIVE STYLES
+   css/responsive.css
+   ========================================================================== */
+
+/* Tablet & Smaller Desktops (<= 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .category-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .products-grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .trust-badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .catalog-layout {
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-grid,
+  .testimonials-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablets (<= 768px) */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .top-announcement {
+    font-size: 0.72rem;
+    padding: 0 10px;
+    height: auto;
+    min-height: var(--announcement-height);
+  }
+
+  .mobile-nav-toggle {
+    display: inline-flex;
+  }
+
+  /* Center nav turns into mobile drawer */
+  .main-nav {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-lg);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 70px 24px 24px;
+    gap: 16px;
+    z-index: 99;
+    transition: left var(--transition-smooth);
+  }
+
+  .main-nav.mobile-active {
+    left: 0;
+  }
+
+  .nav-mobile-backdrop {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-overlay);
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+  }
+
+  .nav-mobile-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hero-slider-wrapper {
+    height: 380px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-slide-content {
+    padding: 24px;
+  }
+
+  .products-grid-4,
+  .products-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .catalog-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-sidebar {
+    position: static;
+    margin-bottom: 24px;
+  }
+
+  .product-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .detail-gallery {
+    flex-direction: column-reverse;
+  }
+
+  .gallery-thumbs-col {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .gallery-thumb-item {
+    width: 70px;
+    flex-shrink: 0;
+  }
+
+  .cart-checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item-row {
+    grid-template-columns: 60px 1fr auto;
+    gap: 12px;
+  }
+
+  .cart-item-row .cart-item-remove-btn {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .cart-item-row .quantity-stepper {
+    grid-column: 2 / span 2;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .testimonials-section {
+    padding: 36px 20px;
+  }
+
+  .testimonials-grid,
+  .testimonials-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .store-location-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .store-map-container,
+  .store-map-frame {
+    min-height: 320px;
+  }
+}
+
+/* Small Mobiles (<= 480px) */
+@media (max-width: 480px) {
+  .hero-slider-wrapper {
+    height: 320px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-desc {
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .category-cards-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .trust-badges-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .detail-actions-row {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-quick-add {
+    display: none; /* Hide hover quick add on touch */
+  }
+}

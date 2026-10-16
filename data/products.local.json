@@ -1,0 +1,498 @@
+{
+  "meta": {
+    "source": "https://www.olv.vn/",
+    "scraped_at": "2026-09-18T22:14:27+07:00",
+    "product_count": 20,
+    "note_vi": [
+      "Dữ liệu được thu thập từ trang danh mục 'Tất cả sản phẩm' và các trang chi tiết sản phẩm công khai trên olv.vn, dùng để làm dữ liệu mẫu (seed) cho website Henni.",
+      "stock_quantity để null vì trang olv.vn không công khai số lượng tồn kho thật — bạn cần tự điền số tồn kho khi seed vào MySQL, KHÔNG phải số liệu thật từ olv.vn.",
+      "sale_price để null cho tất cả sản phẩm vì tại thời điểm thu thập không sản phẩm nào trong danh sách này đang có giá giảm hiển thị trên trang.",
+      "variants là tổ hợp (màu x size) suy ra từ danh sách màu/size công bố trên trang — đây là giả định hợp lý để seed dữ liệu, không phải xác nhận rằng olv.vn bán đủ mọi tổ hợp này.",
+      "Ảnh chưa được tải về file trong bước này (môi trường chạy không truy cập được CDN cdn.hstatic.net) — chỉ có URL ảnh gốc. Dùng script download-images.js đi kèm để tải ảnh về máy local của bạn."
+    ]
+  },
+  "categories": [
+    {
+      "slug": "ao",
+      "name": "Áo"
+    },
+    {
+      "slug": "quan-1",
+      "name": "Quần"
+    },
+    {
+      "slug": "chan-vay",
+      "name": "Chân váy"
+    },
+    {
+      "slug": "vay",
+      "name": "Đầm"
+    }
+  ],
+  "products": [
+    {
+      "slug": "quan-ong-loe-thun-ren-white-lace-low-waist-pants",
+      "name": "Quần ống loe thun ren White Lace Low Waist Pants",
+      "category_slug": "quan-1",
+      "description": "Quần ống loe 2 lớp chất liệu ren thun và lưới, thiết kế thoải mái, thanh lịch. Chất liệu co giãn linh hoạt, phù hợp phối cùng áo thun, áo casual hoặc áo croptop.",
+      "base_price": 590000,
+      "sale_price": null,
+      "colors": [
+        "Trắng"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/quan-ong-loe-thun-ren-white-lace-low-waist-pants",
+      "images_local": [
+        "images/quan-ong-loe-thun-ren-white-lace-low-waist-pants/01.jpg",
+        "images/quan-ong-loe-thun-ren-white-lace-low-waist-pants/02.jpg",
+        "images/quan-ong-loe-thun-ren-white-lace-low-waist-pants/03.jpg",
+        "images/quan-ong-loe-thun-ren-white-lace-low-waist-pants/04.jpg"
+      ]
+    },
+    {
+      "slug": "ao-sat-nach-co-v-phoi-vien-ren-blue-ribbed-v-neck-tank-top",
+      "name": "Áo sát nách cổ V phối viền ren Blue Ribbed V Neck Tank Top",
+      "category_slug": "ao",
+      "description": "Áo thun 1 lớp sát nách, thiết kế trẻ trung gọn gàng. Vải thun mềm mại, độ co giãn nhiều, thoải mái khi mặc. Phù hợp phối với quần jeans, short hoặc chân váy.",
+      "base_price": 190000,
+      "sale_price": null,
+      "colors": [
+        "Xanh dương"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-sat-nach-co-v-phoi-vien-ren-blue-ribbed-v-neck-tank-top",
+      "images_local": [
+        "images/ao-sat-nach-co-v-phoi-vien-ren-blue-ribbed-v-neck-tank-top/01.jpg",
+        "images/ao-sat-nach-co-v-phoi-vien-ren-blue-ribbed-v-neck-tank-top/02.jpg",
+        "images/ao-sat-nach-co-v-phoi-vien-ren-blue-ribbed-v-neck-tank-top/03.jpg",
+        "images/ao-sat-nach-co-v-phoi-vien-ren-blue-ribbed-v-neck-tank-top/04.jpg",
+        "images/ao-sat-nach-co-v-phoi-vien-ren-blue-ribbed-v-neck-tank-top/05.jpg"
+      ]
+    },
+    {
+      "slug": "ao-yem-thun-ren-blanc-fleur-lace-halter-top",
+      "name": "Áo yếm thun ren Blanc Fleur Lace Halter Top",
+      "category_slug": "ao",
+      "description": "Thiết kế áo yếm 1 lớp kiểu dáng nữ tính, trẻ trung, gọn gàng. Chất liệu thun ren mềm mại, độ co giãn tốt. Dễ phối với quần jeans, quần short hoặc chân váy.",
+      "base_price": 190000,
+      "sale_price": null,
+      "colors": [
+        "Trắng"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-yem-thun-ren-blanc-fleur-lace-halter-top",
+      "images_local": [
+        "images/ao-yem-thun-ren-blanc-fleur-lace-halter-top/01.jpg",
+        "images/ao-yem-thun-ren-blanc-fleur-lace-halter-top/02.jpg",
+        "images/ao-yem-thun-ren-blanc-fleur-lace-halter-top/03.jpg",
+        "images/ao-yem-thun-ren-blanc-fleur-lace-halter-top/04.jpg",
+        "images/ao-yem-thun-ren-blanc-fleur-lace-halter-top/05.jpg"
+      ]
+    },
+    {
+      "slug": "quan-shorts-thun-tron-yellow-ribbed-low-waist-shorts",
+      "name": "Quần shorts thun trơn Ribbed Low Waist Shorts",
+      "category_slug": "quan-1",
+      "description": "Quần short 1 lớp kiểu dáng gọn gàng, trẻ trung, năng động. Chất liệu thun mềm mại, độ co giãn cao. Phù hợp phối với áo thun hoặc áo hai dây.",
+      "base_price": 250000,
+      "sale_price": null,
+      "colors": [
+        "Vàng",
+        "Xám"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/quan-shorts-thun-tron-yellow-ribbed-low-waist-shorts",
+      "images_local": [
+        "images/quan-shorts-thun-tron-yellow-ribbed-low-waist-shorts/01.jpg",
+        "images/quan-shorts-thun-tron-yellow-ribbed-low-waist-shorts/02.jpg",
+        "images/quan-shorts-thun-tron-yellow-ribbed-low-waist-shorts/03.jpg",
+        "images/quan-shorts-thun-tron-yellow-ribbed-low-waist-shorts/04.jpg",
+        "images/quan-shorts-thun-tron-yellow-ribbed-low-waist-shorts/05.jpg"
+      ]
+    },
+    {
+      "slug": "ao-so-mi-linen-ke-soc-tay-dai-striped-long-sleeves-shirt-nhieu-mau",
+      "name": "Áo sơ mi linen kẻ sọc tay dài Striped Long Sleeves Shirt",
+      "category_slug": "ao",
+      "description": "Áo sơ mi form rộng 1 lớp tay dài, chất linen mang lại vẻ ngoài phóng khoáng, thanh lịch, thoải mái. Thiết kế rộng tạo cảm giác nhẹ nhàng.",
+      "base_price": 490000,
+      "sale_price": null,
+      "colors": [
+        "Xanh Quilt",
+        "Trắng",
+        "Xám",
+        "Vàng"
+      ],
+      "sizes": [
+        "FS"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-so-mi-linen-ke-soc-tay-dai-striped-long-sleeves-shirt-nhieu-mau",
+      "images_local": [
+        "images/ao-so-mi-linen-ke-soc-tay-dai-striped-long-sleeves-shirt-nhieu-mau/01.jpg",
+        "images/ao-so-mi-linen-ke-soc-tay-dai-striped-long-sleeves-shirt-nhieu-mau/02.jpg",
+        "images/ao-so-mi-linen-ke-soc-tay-dai-striped-long-sleeves-shirt-nhieu-mau/03.png",
+        "images/ao-so-mi-linen-ke-soc-tay-dai-striped-long-sleeves-shirt-nhieu-mau/04.jpg"
+      ]
+    },
+    {
+      "slug": "chan-vay-ngan-gau-phoi-ren-white-plain-gauze-mini-skirt",
+      "name": "Chân váy ngắn gấu phối ren White Plain Gauze Mini Skirt",
+      "category_slug": "chan-vay",
+      "description": "Chân váy 2 lớp chất liệu xô thêu hoa, tạo điểm nhấn nữ tính. Họa tiết thêu hoa nổi bật trên nền vải nhẹ, phom váy ngắn trẻ trung, duyên dáng.",
+      "base_price": 490000,
+      "sale_price": null,
+      "colors": [
+        "Xanh Navy"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/chan-vay-ngan-gau-phoi-ren-white-plain-gauze-mini-skirt",
+      "images_local": [
+        "images/chan-vay-ngan-gau-phoi-ren-white-plain-gauze-mini-skirt/01.jpg",
+        "images/chan-vay-ngan-gau-phoi-ren-white-plain-gauze-mini-skirt/02.jpg",
+        "images/chan-vay-ngan-gau-phoi-ren-white-plain-gauze-mini-skirt/03.jpg",
+        "images/chan-vay-ngan-gau-phoi-ren-white-plain-gauze-mini-skirt/04.jpg",
+        "images/chan-vay-ngan-gau-phoi-ren-white-plain-gauze-mini-skirt/05.jpg"
+      ]
+    },
+    {
+      "slug": "ao-tay-dai-dang-om-body-gray-vneck-buttoned-mid-sleeve-top",
+      "name": "Áo tay dài dáng ôm body Gray Vneck Buttoned Mid Sleeve Top",
+      "category_slug": "ao",
+      "description": "Áo tay dài 1 lớp phom dáng gọn gàng, trẻ trung, dễ phối đồ. Chất liệu thun mềm mại, độ co giãn tốt, phù hợp mặc hàng ngày hoặc phối layer.",
+      "base_price": 290000,
+      "sale_price": null,
+      "colors": [
+        "Xám"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-tay-dai-dang-om-body-gray-vneck-buttoned-mid-sleeve-top",
+      "images_local": [
+        "images/ao-tay-dai-dang-om-body-gray-vneck-buttoned-mid-sleeve-top/01.jpg",
+        "images/ao-tay-dai-dang-om-body-gray-vneck-buttoned-mid-sleeve-top/02.jpg"
+      ]
+    },
+    {
+      "slug": "ao-hai-day-kieu-yellow-plain-ruched-cami-top",
+      "name": "Áo hai dây kiểu Plain Ruched Cami Top",
+      "category_slug": "ao",
+      "description": "Áo hai dây 1 lớp phom ôm gọn, chất liệu thun mềm mại, độ co giãn tốt. Kiểu dáng ngắn gọn, dễ phối với quần jeans, chân váy hoặc layer bên ngoài.",
+      "base_price": 190000,
+      "sale_price": null,
+      "colors": [
+        "Vàng"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-hai-day-kieu-yellow-plain-ruched-cami-top",
+      "images_local": [
+        "images/ao-hai-day-kieu-yellow-plain-ruched-cami-top/01.jpg",
+        "images/ao-hai-day-kieu-yellow-plain-ruched-cami-top/02.jpg",
+        "images/ao-hai-day-kieu-yellow-plain-ruched-cami-top/03.jpg",
+        "images/ao-hai-day-kieu-yellow-plain-ruched-cami-top/04.jpg",
+        "images/ao-hai-day-kieu-yellow-plain-ruched-cami-top/05.jpg"
+      ]
+    },
+    {
+      "slug": "set-ao-hai-day-tron-kem-cardigan-blue-plain-wrap-ruched-top",
+      "name": "Áo hai dây trơn kèm cardigan Blue Plain Wrap Ruched Top",
+      "category_slug": "ao",
+      "description": "Áo hai dây 1 lớp phom dáng ôm gọn, trẻ trung, nữ tính. Chất liệu jersey mềm mại, co giãn tốt, tôn dáng phần trước.",
+      "base_price": 490000,
+      "sale_price": null,
+      "colors": [
+        "Xanh dương"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/set-ao-hai-day-tron-kem-cardigan-blue-plain-wrap-ruched-top",
+      "images_local": [
+        "images/set-ao-hai-day-tron-kem-cardigan-blue-plain-wrap-ruched-top/01.jpg",
+        "images/set-ao-hai-day-tron-kem-cardigan-blue-plain-wrap-ruched-top/02.jpg",
+        "images/set-ao-hai-day-tron-kem-cardigan-blue-plain-wrap-ruched-top/03.jpg",
+        "images/set-ao-hai-day-tron-kem-cardigan-blue-plain-wrap-ruched-top/04.jpg"
+      ]
+    },
+    {
+      "slug": "ao-cardigan-dang-ngan-gray-plain-buttoned-crop-cardigan",
+      "name": "Áo cardigan dáng ngắn Gray Plain Buttoned Crop Cardigan",
+      "category_slug": "ao",
+      "description": "Áo cardigan tay dài 1 lớp phom dáng gọn gàng, ôm nhẹ cơ thể. Chất liệu thun mềm, co giãn tốt, kiểu tối giản dễ phối đồ.",
+      "base_price": 390000,
+      "sale_price": null,
+      "colors": [
+        "Xám"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-cardigan-dang-ngan-gray-plain-buttoned-crop-cardigan",
+      "images_local": [
+        "images/ao-cardigan-dang-ngan-gray-plain-buttoned-crop-cardigan/01.jpg",
+        "images/ao-cardigan-dang-ngan-gray-plain-buttoned-crop-cardigan/02.jpg"
+      ]
+    },
+    {
+      "slug": "ao-hai-day-phoi-ren-sheer-lace-cami-top-nhieu-mau",
+      "name": "Áo hai dây phối ren Sheer Lace Cami Top",
+      "category_slug": "ao",
+      "description": "Áo hai dây 1 lớp chất liệu thun ren, mang đến vẻ ngoài nữ tính, nhẹ nhàng. Phom dáng ôm gọn tôn đường nét cơ thể, độ co giãn tốt.",
+      "base_price": 190000,
+      "sale_price": null,
+      "colors": [
+        "Trắng",
+        "Kem",
+        "Xanh dương"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-hai-day-phoi-ren-sheer-lace-cami-top-nhieu-mau",
+      "images_local": [
+        "images/ao-hai-day-phoi-ren-sheer-lace-cami-top-nhieu-mau/01.jpg",
+        "images/ao-hai-day-phoi-ren-sheer-lace-cami-top-nhieu-mau/02.jpg",
+        "images/ao-hai-day-phoi-ren-sheer-lace-cami-top-nhieu-mau/03.jpg",
+        "images/ao-hai-day-phoi-ren-sheer-lace-cami-top-nhieu-mau/04.jpg",
+        "images/ao-hai-day-phoi-ren-sheer-lace-cami-top-nhieu-mau/05.jpg"
+      ]
+    },
+    {
+      "slug": "ao-tay-dai-ke-soc-striped-vneck-buttoned-mid-sleeve-top-nhieu-mau-2",
+      "name": "Áo tay dài kẻ sọc Striped Vneck Buttoned Mid Sleeve Top",
+      "category_slug": "ao",
+      "description": "Áo tay dài 1 lớp phom dáng gọn gàng, trẻ trung. Chất liệu knit mềm mại, co giãn, mang lại cảm giác thoải mái, linh hoạt.",
+      "base_price": 320000,
+      "sale_price": null,
+      "colors": [
+        "Xanh lá",
+        "Xám"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-tay-dai-ke-soc-striped-vneck-buttoned-mid-sleeve-top-nhieu-mau-2",
+      "images_local": [
+        "images/ao-tay-dai-ke-soc-striped-vneck-buttoned-mid-sleeve-top-nhieu-mau-2/01.jpg",
+        "images/ao-tay-dai-ke-soc-striped-vneck-buttoned-mid-sleeve-top-nhieu-mau-2/02.jpg",
+        "images/ao-tay-dai-ke-soc-striped-vneck-buttoned-mid-sleeve-top-nhieu-mau-2/03.jpg",
+        "images/ao-tay-dai-ke-soc-striped-vneck-buttoned-mid-sleeve-top-nhieu-mau-2/04.jpg",
+        "images/ao-tay-dai-ke-soc-striped-vneck-buttoned-mid-sleeve-top-nhieu-mau-2/05.jpg"
+      ]
+    },
+    {
+      "slug": "chan-vay-to-cham-bi-black-dot-chiffon-tiered-mini-skirt",
+      "name": "Chân váy tơ chấm bi Black Dot Chiffon Tiered Mini Skirt",
+      "category_slug": "chan-vay",
+      "description": "Chân váy 2 lớp với điểm nhấn thêu và in logo ở eo. Phom váy ngắn nữ tính, hiện đại, chất liệu tơ nhẹ mềm mại.",
+      "base_price": 390000,
+      "sale_price": null,
+      "colors": [
+        "Đen"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/chan-vay-to-cham-bi-black-dot-chiffon-tiered-mini-skirt",
+      "images_local": [
+        "images/chan-vay-to-cham-bi-black-dot-chiffon-tiered-mini-skirt/01.jpg",
+        "images/chan-vay-to-cham-bi-black-dot-chiffon-tiered-mini-skirt/02.jpg",
+        "images/chan-vay-to-cham-bi-black-dot-chiffon-tiered-mini-skirt/03.jpg",
+        "images/chan-vay-to-cham-bi-black-dot-chiffon-tiered-mini-skirt/04.jpg"
+      ]
+    },
+    {
+      "slug": "ao-so-mi-tay-phong-cham-bi-black-dot-chiffon-short-sleeves-shirt",
+      "name": "Áo sơ mi tay phồng chấm bi Black Dot Chiffon Short Sleeves Shirt",
+      "category_slug": "ao",
+      "description": "Áo sơ mi 1 lớp tay ngắn kiểu dáng thanh lịch, trẻ trung, năng động. Chất liệu tơ nhẹ nhàng, mềm mại. Dễ phối với quần jeans, chân váy hoặc quần short.",
+      "base_price": 320000,
+      "sale_price": null,
+      "colors": [
+        "Đen chấm bi"
+      ],
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-so-mi-tay-phong-cham-bi-black-dot-chiffon-short-sleeves-shirt",
+      "images_local": [
+        "images/ao-so-mi-tay-phong-cham-bi-black-dot-chiffon-short-sleeves-shirt/01.jpg",
+        "images/ao-so-mi-tay-phong-cham-bi-black-dot-chiffon-short-sleeves-shirt/02.png",
+        "images/ao-so-mi-tay-phong-cham-bi-black-dot-chiffon-short-sleeves-shirt/03.jpg",
+        "images/ao-so-mi-tay-phong-cham-bi-black-dot-chiffon-short-sleeves-shirt/04.jpg"
+      ]
+    },
+    {
+      "slug": "ao-hai-day-ngoi-sao-white-black-star-cotton-cami-top",
+      "name": "Áo hai dây ngôi sao White Black Star Cotton Cami Top",
+      "category_slug": "ao",
+      "description": "Áo hai dây 1 lớp với điểm nhấn chi tiết ngôi sao đính trên ngực. Phom ôm vừa, dễ phối với quần jeans, chân váy hoặc trang phục thường ngày.",
+      "base_price": 290000,
+      "sale_price": null,
+      "colors": [
+        "Xanh Navy"
+      ],
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-hai-day-ngoi-sao-white-black-star-cotton-cami-top",
+      "images_local": [
+        "images/ao-hai-day-ngoi-sao-white-black-star-cotton-cami-top/01.jpg",
+        "images/ao-hai-day-ngoi-sao-white-black-star-cotton-cami-top/02.png",
+        "images/ao-hai-day-ngoi-sao-white-black-star-cotton-cami-top/03.jpg",
+        "images/ao-hai-day-ngoi-sao-white-black-star-cotton-cami-top/04.jpg"
+      ]
+    },
+    {
+      "slug": "chan-vay-lua-phoi-ren-white-silky-plain-lace-skirt",
+      "name": "Chân váy lụa phối ren White Silky Plain Lace Skirt",
+      "category_slug": "chan-vay",
+      "description": "Chân váy lụa phối ren, thiết kế sang trọng và thanh lịch, kết hợp chất liệu lụa mềm mại với chi tiết ren tinh tế.",
+      "base_price": 390000,
+      "sale_price": null,
+      "colors": [
+        "Trắng"
+      ],
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "source_url": "https://www.olv.vn/products/chan-vay-lua-phoi-ren-white-silky-plain-lace-skirt",
+      "images_local": [
+        "images/chan-vay-lua-phoi-ren-white-silky-plain-lace-skirt/01.jpg",
+        "images/chan-vay-lua-phoi-ren-white-silky-plain-lace-skirt/02.jpg",
+        "images/chan-vay-lua-phoi-ren-white-silky-plain-lace-skirt/03.jpg"
+      ]
+    },
+    {
+      "slug": "ao-sat-nach-co-co-baby-blue-knit-dot-polo-top",
+      "name": "Áo sát nách có cổ Baby Knit Dot Polo Top",
+      "category_slug": "ao",
+      "description": "Áo polo sát nách 1 lớp chất liệu knit, phom dáng ôm gọn. Chất liệu mềm mại, co giãn nhẹ, tạo cảm giác thoải mái tự nhiên. Dễ phối với quần jeans, chân váy hoặc layer.",
+      "base_price": 490000,
+      "sale_price": null,
+      "colors": [
+        "Xanh baby",
+        "Vàng"
+      ],
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-sat-nach-co-co-baby-blue-knit-dot-polo-top",
+      "images_local": [
+        "images/ao-sat-nach-co-co-baby-blue-knit-dot-polo-top/01.jpg",
+        "images/ao-sat-nach-co-co-baby-blue-knit-dot-polo-top/02.jpg",
+        "images/ao-sat-nach-co-co-baby-blue-knit-dot-polo-top/03.jpg",
+        "images/ao-sat-nach-co-co-baby-blue-knit-dot-polo-top/04.jpg"
+      ]
+    },
+    {
+      "slug": "set-so-mi-dai-stevie-dress-in-light-blue",
+      "name": "Đầm sơ mi kẻ sọc suông dài Stevie Dress in Light Blue",
+      "category_slug": "vay",
+      "description": "Đầm sơ mi 2 lớp thiết kế thanh lịch, nữ tính với 2 cúc thật phía trên, túi giả và dây thun eo tạo cảm giác thoải mái. Chất liệu cotton mềm mại, thoáng khí.",
+      "base_price": 690000,
+      "sale_price": null,
+      "colors": [
+        "Xanh nhạt"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/set-so-mi-dai-stevie-dress-in-light-blue",
+      "images_local": [
+        "images/set-so-mi-dai-stevie-dress-in-light-blue/01.jpg",
+        "images/set-so-mi-dai-stevie-dress-in-light-blue/02.jpg",
+        "images/set-so-mi-dai-stevie-dress-in-light-blue/03.jpg"
+      ]
+    },
+    {
+      "slug": "ao-thun-tay-phong-white-cotton-short-sleeves-top",
+      "name": "Áo Thun Tay Phồng White Cotton Short Sleeves Top",
+      "category_slug": "ao",
+      "description": "Áo thun cổ tròn cơ bản, chất liệu cotton mềm mại, thoải mái, độ co giãn ít. Kiểu dáng đơn giản, dễ phối với quần jeans, quần short hoặc chân váy.",
+      "base_price": 250000,
+      "sale_price": null,
+      "colors": [
+        "Trắng"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/ao-thun-tay-phong-white-cotton-short-sleeves-top",
+      "images_local": [
+        "images/ao-thun-tay-phong-white-cotton-short-sleeves-top/01.jpg",
+        "images/ao-thun-tay-phong-white-cotton-short-sleeves-top/02.jpg",
+        "images/ao-thun-tay-phong-white-cotton-short-sleeves-top/03.jpg"
+      ]
+    },
+    {
+      "slug": "originvol3-1",
+      "name": "Chân váy Gray Cotton Tie Skirt",
+      "category_slug": "chan-vay",
+      "description": "Chân váy ngắn 2 lớp với điểm nhấn đính nơ lệch một bên, tạo vẻ nữ tính, trẻ trung. Chất liệu chino cotton, form đứng, ít co giãn, giữ dáng tốt.",
+      "base_price": 490000,
+      "sale_price": null,
+      "colors": [
+        "Xám"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "source_url": "https://www.olv.vn/products/originvol3-1",
+      "images_local": [
+        "images/originvol3-1/01.jpg",
+        "images/originvol3-1/02.jpg",
+        "images/originvol3-1/03.jpg",
+        "images/originvol3-1/04.jpg",
+        "images/originvol3-1/05.jpg"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Về Chúng Tôi | Henni Shop - Thời Trang Nữ Tinh Tế</title>
+  <meta name="description" content="Tìm hiểu về câu chuyện thương hiệu Henni Shop, giá trị cốt lõi, cảm nhận của khách hàng và ghé thăm không gian trải nghiệm showroom thời trang cao cấp.">
+
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- 1. Thanh thông báo đầu trang (Top Announcement Bar) -->
+  <div class="top-announcement">
+    MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC CHO ĐƠN HÀNG TỪ 800.000₫ • ĐỔI TRẢ TRONG VÒNG 7 NGÀY
+  </div>
+
+  <!-- 2. Header / Thanh điều hướng chính -->
+  <header class="site-header">
+    <div class="container header-container">
+      <!-- Nút mở menu trên Mobile -->
+      <button type="button" class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Menu">
+        &#9776;
+      </button>
+
+      <!-- Logo thương hiệu -->
+      <a href="index.html" class="brand-logo-link">
+        <img src="images/logo.png" alt="Henni Shop Logo" class="brand-logo-img" onerror="this.style.display='none'; document.getElementById('brand-text-logo').style.display='block';">
+        <span id="brand-text-logo" class="brand-fallback-text" style="display: none;">HENNI</span>
+      </a>
+
+      <!-- Menu danh mục chính -->
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html" class="nav-link">TRANG CHỦ</a>
+        <a href="san-pham.html" class="nav-link">TẤT CẢ SẢN PHẨM</a>
+        <div class="nav-item-dropdown">
+          <a href="san-pham.html" class="nav-link nav-dropdown-toggle" id="nav-collection-toggle">
+            BỘ SƯU TẬP <span class="nav-dropdown-arrow">▾</span>
+          </a>
+          <div class="nav-dropdown-menu">
+            <a href="san-pham.html?category=ao">Áo kiểu & Sơ mi</a>
+            <a href="san-pham.html?category=quan-1">Quần tây & Short</a>
+            <a href="san-pham.html?category=chan-vay">Chân váy</a>
+            <a href="san-pham.html?category=vay">Đầm thiết kế</a>
+          </div>
+        </div>
+        <a href="ve-chung-toi.html" class="nav-link active">VỀ CHÚNG TÔI</a>
+      </nav>
+      <div class="nav-mobile-backdrop" id="nav-mobile-backdrop"></div>
+
+      <!-- Khối tác vụ bên phải -->
+      <div class="header-actions">
+        <!-- Tìm kiếm -->
+        <button type="button" class="header-action-btn" id="open-search-modal" title="Tìm kiếm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+        <!-- Tài khoản người dùng -->
+        <div class="user-menu-wrapper">
+          <button type="button" class="user-action-btn" id="header-user-btn" title="Tài khoản">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </button>
+          <div class="user-dropdown-menu" id="user-dropdown-menu"></div>
+        </div>
+
+        <!-- Giỏ hàng -->
+        <a href="gio-hang.html" class="header-action-btn cart-icon-btn" title="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Nội dung trang Về Chúng Tôi -->
+  <main class="section-py">
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs">
+        <a href="index.html">Trang chủ</a>
+        <span>/</span>
+        <span>Về chúng tôi</span>
+      </div>
+
+      <!-- Hero & Câu chuyện thương hiệu -->
+      <section class="about-hero-section">
+        <span class="section-subtitle">CÂU CHUYỆN THƯƠNG HIỆU</span>
+        <h1 class="section-title serif" style="font-size: 2.4rem; margin-top: 8px; margin-bottom: 20px;">
+          Định Hình Phong Cách Tinh Tế Cùng Henni
+        </h1>
+        <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-primary); max-width: 760px; margin: 0 auto 20px;">
+          Ra đời từ niềm say mê vẻ đẹp thanh lịch và chủ nghĩa tối giản hiện đại (Minimalist Chic), <strong>Henni Shop</strong> không chỉ mang đến những bộ trang phục thường ngày mà còn là người bạn đồng hành giúp phái đẹp tự tin tỏa sáng với phong thái tự nhiên nhất.
+        </p>
+        <p style="font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); max-width: 720px; margin: 0 auto;">
+          Mỗi thiết kế tại Henni là sự kết hợp hài hòa giữa phom dáng cắt may chỉn chu, chất liệu sợi tự nhiên thoáng nhẹ và gam màu trang nhã, tạo nên nét cuốn hút riêng biệt cho nàng công sở lẫn khi dạo phố cuối tuần.
+        </p>
+
+        <!-- 3 Trụ cột giá trị -->
+        <div class="about-pillars-grid">
+          <div class="about-pillar-card">
+            <div class="about-pillar-icon">🌿</div>
+            <h3 class="about-pillar-title">Chất Liệu Tuyển Chọn</h3>
+            <p class="about-pillar-desc">
+              Ưu tiên lụa tơ tằm, linen tự nhiên, sợi cotton cao cấp và đũi hữu cơ mềm mát, thân thiện với làn da và bền đẹp theo năm tháng.
+            </p>
+          </div>
+
+          <div class="about-pillar-card">
+            <div class="about-pillar-icon">✂️</div>
+            <h3 class="about-pillar-title">Kỹ Thuật Cắt May Tôn Dáng</h3>
+            <p class="about-pillar-desc">
+              Quy chuẩn may giấu chỉ tinh xảo, từng đường kim mũi chỉ được căn chỉnh chuẩn mực nhằm tôn lên đường cong tự nhiên và sự thoải mái khi vận động.
+            </p>
+          </div>
+
+          <div class="about-pillar-card">
+            <div class="about-pillar-icon">✨</div>
+            <h3 class="about-pillar-title">Bền Vững & Ứng Dụng</h3>
+            <p class="about-pillar-desc">
+              Thiết kế vượt thời gian, dễ dàng mix & match linh hoạt trong mọi hoàn cảnh, giảm thiểu tiêu dùng nhanh và xây dựng tủ đồ có gu.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Khối Cảm nhận khách hàng (Testimonials) -->
+      <section class="testimonials-section">
+        <div class="testimonials-header">
+          <span class="testimonials-script-subtitle">Cảm nhận khách hàng</span>
+          <h2 class="testimonials-main-title">Khách hàng nói gì về Henni</h2>
+        </div>
+
+        <div class="testimonials-grid-4">
+          <!-- Đánh giá 1: Chị Thu Hà -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testimonial-rating">★★★★★</div>
+              <p class="testimonial-text">
+                “Henni là nơi mình luôn ghé mỗi khi cần làm mới tủ đồ. Chất lượng vải rất tốt, giá hợp lý và nhân viên tư vấn nhiệt tình.”
+              </p>
+            </div>
+            <div class="testimonial-author-box">
+              <div class="testimonial-avatar">C</div>
+              <div class="testimonial-author-info">
+                <div class="testimonial-author-name">Chị Thu Hà</div>
+                <div class="testimonial-author-role">Khách hàng thân thiết</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Đánh giá 2: Chị Ngọc Linh -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testimonial-rating">★★★★★</div>
+              <p class="testimonial-text">
+                “Mình đặt online nhiều lần, sản phẩm luôn đúng như hình, giao hàng nhanh. Rất thích phong cách tối giản, thanh lịch của shop.”
+              </p>
+            </div>
+            <div class="testimonial-author-box">
+              <div class="testimonial-avatar">C</div>
+              <div class="testimonial-author-info">
+                <div class="testimonial-author-name">Chị Ngọc Linh</div>
+                <div class="testimonial-author-role">Nhân viên văn phòng</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Đánh giá 3: Chị Phương Thảo -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testimonial-rating">★★★★<span class="star-empty">☆</span></div>
+              <p class="testimonial-text">
+                “Thiết kế của Henni có nét riêng, dễ phối đồ mà vẫn nổi bật. Mong shop ra thêm nhiều mẫu mới mỗi mùa.”
+              </p>
+            </div>
+            <div class="testimonial-author-box">
+              <div class="testimonial-avatar">C</div>
+              <div class="testimonial-author-info">
+                <div class="testimonial-author-name">Chị Phương Thảo</div>
+                <div class="testimonial-author-role">Fashion blogger</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Đánh giá 4: Chị Bảo Trân -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testimonial-rating">★★★★★</div>
+              <p class="testimonial-text">
+                “Giá sinh viên vẫn mua được đồ đẹp, chất lượng ổn định. Đổi trả cũng dễ dàng nên mình rất yên tâm khi mua.”
+              </p>
+            </div>
+            <div class="testimonial-author-box">
+              <div class="testimonial-avatar">C</div>
+              <div class="testimonial-author-info">
+                <div class="testimonial-author-name">Chị Bảo Trân</div>
+                <div class="testimonial-author-role">Sinh viên</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Khối Nhúng Địa Chỉ Showroom & Google Maps -->
+      <section style="margin-bottom: 60px;">
+        <div class="section-title-wrap" style="text-align: center; margin-bottom: 36px;">
+          <span class="section-subtitle">GHÉ THĂM CỬA HÀNG</span>
+          <h2 class="section-title serif">Không Gian Trải Nghiệm Showroom Henni</h2>
+          <p class="section-desc" style="max-width: 600px; margin: 0 auto;">
+            Mời bạn đến trực tiếp showroom Henni để chạm vào từng thớ vải cao cấp và trải nghiệm phòng thử đồ riêng tư, tiện nghi.
+          </p>
+        </div>
+
+        <div class="store-location-grid">
+          <!-- Thông tin liên hệ & Showroom -->
+          <div class="store-info-card">
+            <div>
+              <h3 style="font-size: 1.35rem; font-family: var(--font-serif); margin-bottom: 20px; color: var(--text-primary); border-bottom: 2px solid #c4a07c; padding-bottom: 10px; display: inline-block;">
+                Showroom Flagship TP. HCM
+              </h3>
+
+              <div class="store-info-list">
+                <div class="store-info-item">
+                  <div class="store-info-icon">📍</div>
+                  <div>
+                    <strong>Địa chỉ showroom:</strong><br>
+                    128 Đường Thời Trang, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh
+                  </div>
+                </div>
+
+                <div class="store-info-item">
+                  <div class="store-info-icon">⏰</div>
+                  <div>
+                    <strong>Giờ mở cửa phục vụ:</strong><br>
+                    09:00 - 22:00 (Mở cửa tất cả các ngày trong tuần, kể cả ngày Lễ)
+                  </div>
+                </div>
+
+                <div class="store-info-item">
+                  <div class="store-info-icon">📞</div>
+                  <div>
+                    <strong>Hotline tư vấn & đặt hẹn thử đồ:</strong><br>
+                    <a href="tel:0988123456" style="color: #c4a07c; font-weight: 700; text-decoration: none;">0988.123.456</a> (Hỗ trợ 24/7)
+                  </div>
+                </div>
+
+                <div class="store-info-item">
+                  <div class="store-info-icon">✉️</div>
+                  <div>
+                    <strong>Hòm thư hỗ trợ:</strong><br>
+                    <a href="mailto:contact@hennishop.vn" style="color: #c4a07c; text-decoration: none;">contact@hennishop.vn</a>
+                  </div>
+                </div>
+
+                <div class="store-info-item">
+                  <div class="store-info-icon">🚗</div>
+                  <div>
+                    <strong>Tiện ích đỗ xe:</strong><br>
+                    Bãi giữ xe ô tô & xe máy rộng rãi, bảo vệ an ninh và hoàn toàn miễn phí.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form liên hệ nhanh -->
+            <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-xs); border: 1px solid var(--border-light); margin-top: 20px;">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">
+                Gửi lời nhắn cho Henni
+              </h4>
+              <form onsubmit="event.preventDefault(); showToast('Cảm ơn bạn! Henni sẽ phản hồi tin nhắn trong thời gian sớm nhất.', 'success'); this.reset();">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                  <input type="text" placeholder="Họ và tên..." required style="width: 100%; padding: 8px 12px; font-size: 0.85rem; border: 1px solid var(--border-light); border-radius: var(--radius-xs); background: #ffffff;">
+                  <input type="tel" placeholder="Số điện thoại..." required style="width: 100%; padding: 8px 12px; font-size: 0.85rem; border: 1px solid var(--border-light); border-radius: var(--radius-xs); background: #ffffff;">
+                </div>
+                <textarea rows="2" placeholder="Lời nhắn hoặc yêu cầu đặt lịch hẹn thử đồ..." required style="width: 100%; padding: 8px 12px; font-size: 0.85rem; border: 1px solid var(--border-light); border-radius: var(--radius-xs); background: #ffffff; resize: vertical; margin-bottom: 10px; font-family: inherit;"></textarea>
+                <button type="submit" class="btn btn-primary btn-sm" style="width: 100%;">
+                  Gửi lời nhắn ngay
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Bản đồ Google Maps nhúng iframe -->
+          <div class="store-map-container">
+            <iframe 
+              class="store-map-frame" 
+              src="https://maps.google.com/maps?q=128+Dong+Khoi,+Ben+Nghe,+District+1,+Ho+Chi+Minh+City&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Vị trí cửa hàng Henni Shop trên Google Maps">
+            </iframe>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 4. Footer chân trang -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Cột 1 -->
+        <div>
+          <h4 class="footer-col-title">Henni Shop</h4>
+          <p class="footer-desc">
+            Thương hiệu thời trang nữ phong cách Minimalist Chic hiện đại, đề cao sự tinh tế, chuẩn mực đường may và tính ứng dụng cao cho phái đẹp.
+          </p>
+          <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8;">
+            <div>📍 Địa chỉ: 128 Đường Thời Trang, Quận 1, TP. Hồ Chí Minh</div>
+            <div>📞 Hotline: 0988.123.456</div>
+            <div>✉️ Email: contact@hennishop.vn</div>
+          </div>
+        </div>
+
+        <!-- Cột 2 -->
+        <div>
+          <h4 class="footer-col-title">Danh mục</h4>
+          <ul class="footer-links-list">
+            <li><a href="san-pham.html?category=ao">Áo kiểu & Sơ mi</a></li>
+            <li><a href="san-pham.html?category=quan-1">Quần tây & Quần short</a></li>
+            <li><a href="san-pham.html?category=chan-vay">Chân váy ngắn & Chân váy dài</a></li>
+            <li><a href="san-pham.html?category=vay">Đầm thiết kế</a></li>
+            <li><a href="san-pham.html">Tất cả sản phẩm</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 3 -->
+        <div>
+          <h4 class="footer-col-title">Hỗ trợ khách hàng</h4>
+          <ul class="footer-links-list">
+            <li><a href="ve-chung-toi.html">Về chúng tôi</a></li>
+            <li><a href="don-hang.html">Tra cứu đơn hàng</a></li>
+            <li><a href="dang-nhap.html">Đăng nhập / Đăng ký</a></li>
+            <li><a href="#">Chính sách đổi trả 7 ngày</a></li>
+            <li><a href="#">Hướng dẫn chọn kích cỡ</a></li>
+            <li><a href="#">Chính sách vận chuyển</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 4 -->
+        <div>
+          <h4 class="footer-col-title">Nhận bản tin ưu đãi</h4>
+          <p class="footer-desc">
+            Đăng ký để nhận thông tin bộ sưu tập mới nhất và voucher giảm giá 10% cho đơn hàng đầu tiên.
+          </p>
+          <form class="footer-newsletter-form" onsubmit="event.preventDefault(); showToast('Cảm ơn bạn đã đăng ký nhận bản tin!', 'success'); this.reset();">
+            <input type="email" class="footer-newsletter-input" placeholder="Nhập email của bạn..." required>
+            <button type="submit" class="btn btn-primary btn-sm">Gửi</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Henni Shop. Tất cả các quyền được bảo lưu. Thiết kế giao diện thuần chuẩn mực Front-end.</div>
+        <div>Cơ sở dữ liệu SQLite Client-side với WebAssembly (sql.js)</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Tìm Kiếm Tức Thời (Instant Search) -->
+  <div class="search-modal-backdrop" id="search-modal-backdrop">
+    <div class="search-modal-card">
+      <div class="search-input-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input-box" id="search-modal-input" placeholder="Tìm kiếm áo, quần, chân váy, đầm...">
+        <button type="button" class="search-close-btn" id="close-search-modal">&times;</button>
+      </div>
+      <div class="search-results-list" id="search-modal-results"></div>
+    </div>
+  </div>
+
+  <!-- Màn hình chờ CSDL (theo SPEC kiểm tra môi trường) -->
+  <div id="db-loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Đang nạp dữ liệu cửa hàng...</div>
+    <div class="loading-subtext">Hệ thống đang tải cơ sở dữ liệu SQLite qua WebAssembly (sql.js)...</div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- WebAssembly sql.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
+  <!-- Ứng dụng & CSDL SQLite -->
+  <script src="js/database.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
