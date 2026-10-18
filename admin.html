@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Henni Admin - Quản Trị Hệ Thống</title>
   <link rel="icon" type="image/png" href="images/logo.png">
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/pages.css">
@@ -294,62 +298,135 @@
 
   <!-- Modal Thêm / Chỉnh Sửa Sản Phẩm -->
   <div class="search-modal-backdrop" id="product-modal-backdrop">
-    <div class="search-modal-card" style="max-width: 680px; padding: 28px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 14px; margin-bottom: 20px;">
-        <h3 id="product-modal-title" style="font-size: 1.25rem; font-weight: 700;">Thêm sản phẩm mới</h3>
-        <button type="button" onclick="closeProductModal()" style="font-size: 1.3rem; color: var(--text-muted);">&times;</button>
+    <div class="search-modal-card">
+      <div class="product-modal-header">
+        <h3 id="product-modal-title" style="font-size: 1.25rem; font-weight: 700; margin: 0; color: #1e1714;">Thêm sản phẩm mới</h3>
+        <button type="button" onclick="closeProductModal()" style="font-size: 1.4rem; color: #8c7d71; background: none; border: none; cursor: pointer; line-height: 1;" title="Đóng">&times;</button>
       </div>
 
-      <form id="product-edit-form">
-        <div class="form-group">
-          <label class="form-label required">Tên sản phẩm</label>
-          <input type="text" name="name" class="form-control" placeholder="Ví dụ: Áo Sơ Mi Linen Kẻ Sọc" required>
+      <form id="product-edit-form" style="display: flex; flex-direction: column; flex: 1; min-height: 0; margin: 0;">
+        <div class="product-modal-body">
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label class="form-label required">Tên sản phẩm</label>
+            <input type="text" name="name" class="form-control" placeholder="Ví dụ: Áo Sơ Mi Linen Kẻ Sọc" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Slug (tùy chọn)</label>
+              <input type="text" name="slug" class="form-control" placeholder="ao-so-mi-linen-ke-soc">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label required">Danh mục</label>
+              <select name="category_id" id="prod-form-category" class="form-select" required></select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label required">Giá cơ bản (VNĐ)</label>
+              <input type="number" name="base_price" class="form-control" placeholder="490000" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Giá khuyến mãi (VNĐ - nếu có)</label>
+              <input type="number" name="sale_price" class="form-control" placeholder="Để trống nếu không giảm">
+            </div>
+          </div>
+
+          <!-- Phân loại Màu sắc & Kích thước -->
+          <div class="admin-variant-section">
+            <!-- 1. Màu sắc -->
+            <div style="margin-bottom: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-label" style="margin-bottom: 0; font-weight: 600; color: #2b2725;">
+                  Màu sắc sản phẩm
+                  <span id="selected-colors-count" class="admin-variant-count-badge">0 màu đã chọn</span>
+                </label>
+                <small class="text-muted" style="font-size: 0.78rem;">Nhấp để chọn / bỏ chọn nhiều màu</small>
+              </div>
+
+              <!-- Danh sách lựa chọn Màu sắc -->
+              <div id="product-color-selector" class="color-picker-grid"></div>
+
+              <!-- Thêm màu tùy chỉnh nếu có -->
+              <div class="custom-variant-add-row" style="margin-top: 10px;">
+                <input type="text" id="custom-color-input" class="form-control form-control-sm" placeholder="Thêm màu khác (VD: Xanh bơ, Họa tiết nhí...)">
+                <button type="button" class="btn btn-sm btn-outline" onclick="addCustomColor()" style="white-space: nowrap; font-size: 0.8rem; padding: 6px 12px;">+ Thêm màu</button>
+              </div>
+              <input type="hidden" name="colors" id="prod-colors-input">
+            </div>
+
+            <!-- 2. Kích thước -->
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-label" style="margin-bottom: 0; font-weight: 600; color: #2b2725;">
+                  Kích thước sản phẩm
+                  <span id="selected-sizes-count" class="admin-variant-count-badge">0 size đã chọn</span>
+                </label>
+                <small class="text-muted" style="font-size: 0.78rem;">Nhấp để chọn / bỏ chọn nhiều size</small>
+              </div>
+
+              <!-- Danh sách lựa chọn Kích thước -->
+              <div id="product-size-selector" class="size-picker-grid"></div>
+
+              <!-- Thêm size tùy chỉnh nếu có -->
+              <div class="custom-variant-add-row" style="margin-top: 10px;">
+                <input type="text" id="custom-size-input" class="form-control form-control-sm" placeholder="Thêm size khác (VD: 31, 32, Oversize...)">
+                <button type="button" class="btn btn-sm btn-outline" onclick="addCustomSize()" style="white-space: nowrap; font-size: 0.8rem; padding: 6px 12px;">+ Thêm size</button>
+              </div>
+              <input type="hidden" name="sizes" id="prod-sizes-input">
+            </div>
+          </div>
+
+          <!-- Quản lý & Tải lên Hình ảnh -->
+          <div class="form-group" style="margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <label class="form-label" style="margin-bottom: 0; font-weight: 600; color: #2b2725;">
+                Hình ảnh sản phẩm
+                <span id="product-images-count-badge" class="admin-variant-count-badge">0 ảnh</span>
+              </label>
+              <small class="text-muted" style="font-size: 0.78rem;">Ảnh đầu tiên (#1) sẽ là ảnh đại diện chính</small>
+            </div>
+
+            <!-- Khung Upload kéo thả & chọn nhiều ảnh -->
+            <div class="image-upload-dropzone" id="image-upload-dropzone">
+              <input type="file" id="prod-image-file-input" multiple accept="image/*" style="display: none;">
+              <div class="dropzone-content">
+                <div class="dropzone-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                </div>
+                <div class="dropzone-text">
+                  <strong>Nhấp để chọn ảnh từ máy</strong> hoặc kéo thả nhiều ảnh vào đây
+                </div>
+                <div class="dropzone-hint">
+                  Hỗ trợ tải lên cùng lúc nhiều ảnh (.jpg, .png, .webp). Tự động nén tối ưu hiển thị.
+                </div>
+              </div>
+            </div>
+
+            <!-- Tùy chọn nhập link URL hoặc đường dẫn nội bộ -->
+            <div class="custom-variant-add-row" style="margin-top: 10px;">
+              <input type="text" id="custom-image-url-input" class="form-control form-control-sm" placeholder="Hoặc nhập đường dẫn ảnh (VD: images/ao/01.jpg hoặc https://...)">
+              <button type="button" class="btn btn-sm btn-outline" onclick="addCustomImageUrl()" style="white-space: nowrap; font-size: 0.8rem; padding: 6px 12px;">+ Thêm URL</button>
+            </div>
+
+            <!-- Danh sách ảnh xem trước (Thumbnails Grid) -->
+            <div id="product-images-preview-grid" class="image-preview-grid"></div>
+
+            <textarea name="images" id="prod-images-textarea" style="display: none;"></textarea>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 8px;">
+            <label class="form-label">Mô tả sản phẩm</label>
+            <textarea name="description" class="form-control" rows="3" placeholder="Mô tả chất liệu cao cấp, kiểu dáng thanh lịch..."></textarea>
+          </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-          <div class="form-group">
-            <label class="form-label">Slug (tùy chọn)</label>
-            <input type="text" name="slug" class="form-control" placeholder="ao-so-mi-linen-ke-soc">
-          </div>
-          <div class="form-group">
-            <label class="form-label required">Danh mục</label>
-            <select name="category_id" id="prod-form-category" class="form-select" required></select>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-          <div class="form-group">
-            <label class="form-label required">Giá cơ bản (VNĐ)</label>
-            <input type="number" name="base_price" class="form-control" placeholder="490000" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Giá khuyến mãi (VNĐ - nếu có)</label>
-            <input type="number" name="sale_price" class="form-control" placeholder="Để trống nếu không giảm">
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-          <div class="form-group">
-            <label class="form-label">Màu sắc (phân tách bởi dấu phẩy)</label>
-            <input type="text" name="colors" class="form-control" placeholder="Trắng, Đen, Be, Xanh dương">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Kích thước (phân tách bởi dấu phẩy)</label>
-            <input type="text" name="sizes" class="form-control" placeholder="S, M, L, Freesize">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Đường dẫn ảnh (mỗi dòng một đường dẫn ảnh)</label>
-          <textarea name="images" class="form-control" rows="3" placeholder="images/ao/01.jpg"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Mô tả sản phẩm</label>
-          <textarea name="description" class="form-control" rows="3" placeholder="Mô tả chất liệu cao cấp, kiểu dáng thanh lịch..."></textarea>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; border-top: 1px solid var(--border-light); padding-top: 16px;">
+        <div class="product-modal-footer">
           <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Hủy bỏ</button>
           <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
         </div>

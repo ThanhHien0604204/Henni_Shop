@@ -269,6 +269,18 @@ INSERT OR IGNORE INTO product_images (product_id, url, sort_order) VALUES
 (20, 'images/originvol3-1/03.jpg', 2),
 (20, 'images/originvol3-1/04.jpg', 3),
 (20, 'images/originvol3-1/05.jpg', 4);
+
+INSERT OR IGNORE INTO orders (
+    id, code, subtotal, shipping_fee, total, shipping_method, payment_method, status, 
+    shipping_full_name, shipping_phone, shipping_email, shipping_address, shipping_province, created_at
+) VALUES 
+(1, 'HN260920-5920', 710000, 0, 710000, 'standard', 'cod', 'Đang giao', 'nguyễn văn A', '0912345678', 'nguyenvana@gmail.com', '123 Đường Lê Lợi, Phường Bến Nghé, Quận 1', 'TP. Hồ Chí Minh', '2026-10-16 18:12:43'),
+(2, 'HN261015-8821', 490000, 0, 490000, 'standard', 'cod', 'Đang xử lý', 'Nguyễn Thu Trang', '0912345678', 'khachhang@gmail.com', '456 Hai Bà Trưng, Phường Tân Định, Quận 1', 'TP. Hồ Chí Minh', '2026-10-17 16:48:30');
+
+INSERT OR IGNORE INTO order_items (id, order_id, product_id, product_name, color, size, unit_price, quantity) VALUES 
+(1, 1, 1, 'Quần ống loe thun ren White Lace Low Waist Pants', 'Trắng', 'M', 590000, 1),
+(2, 1, 2, 'Áo sát nách cổ V phối viền ren Blue Ribbed V Neck Tank Top', 'Xanh dương', 'S', 120000, 1),
+(3, 2, 5, 'Áo sơ mi linen kẻ sọc tay dài Striped Long Sleeves Shirt', 'Trắng', 'FS', 490000, 1);
 `;
 
 class HenniDatabase {
@@ -328,24 +340,80 @@ class HenniDatabase {
         `);
       }
 
-      // Đảm bảo có đơn hàng mẫu #HN260920-5920 khớp với hình giao diện Admin
-      const orderCount = this.query("SELECT COUNT(*) as cnt FROM orders");
-      if (!orderCount || orderCount[0].cnt === 0) {
+      // Đảm bảo luôn có đầy đủ 2 đơn hàng mẫu trong SQLite (kể cả khi đã có bản cache cũ trong localStorage)
+      const ord1 = this.query("SELECT id FROM orders WHERE code = 'HN260920-5920'");
+      if (!ord1 || ord1.length === 0) {
         this.run(`
-          INSERT OR IGNORE INTO orders (
-              id, code, subtotal, shipping_fee, total, shipping_method, payment_method, status, 
-              shipping_full_name, shipping_phone, shipping_email, shipping_address, shipping_province
+          INSERT INTO orders (
+              code, subtotal, shipping_fee, total, shipping_method, payment_method, status, 
+              shipping_full_name, shipping_phone, shipping_email, shipping_address, shipping_province, created_at
           ) VALUES (
-              1, 'HN260920-5920', 710000, 0, 710000, 'standard', 'cod', 'Đang giao',
-              'nguyễn văn A', '0912345678', 'nguyenvana@gmail.com', '123 Đường Lê Lợi, Phường Bến Nghé, Quận 1', 'TP. Hồ Chí Minh'
-          );
+              'HN260920-5920', 710000, 0, 710000, 'standard', 'cod', 'Đang giao',
+              'nguyễn văn A', '0912345678', 'nguyenvana@gmail.com', '123 Đường Lê Lợi, Phường Bến Nghé, Quận 1', 'TP. Hồ Chí Minh', '2026-10-16 18:12:43'
+          )
         `);
+        const id1Res = this.query("SELECT id FROM orders WHERE code = 'HN260920-5920'");
+        if (id1Res.length > 0) {
+          this.run(`
+            INSERT INTO order_items (order_id, product_id, product_name, color, size, unit_price, quantity)
+            VALUES (?, 1, 'Quần ống loe thun ren White Lace Low Waist Pants', 'Trắng', 'M', 590000, 1),
+                   (?, 2, 'Áo sát nách cổ V phối viền ren Blue Ribbed V Neck Tank Top', 'Xanh dương', 'S', 120000, 1);
+          `, [id1Res[0].id, id1Res[0].id]);
+        }
+      }
+
+      const ord2 = this.query("SELECT id FROM orders WHERE code = 'HN261015-8821'");
+      if (!ord2 || ord2.length === 0) {
         this.run(`
-          INSERT OR IGNORE INTO order_items (id, order_id, product_id, product_name, color, size, unit_price, quantity)
-          VALUES (1, 1, 1, 'Quần ống loe thun ren White Lace Low Waist Pants', 'Trắng', 'M', 590000, 1),
-                 (2, 1, 2, 'Áo sát nách cổ V phối viền ren Blue Ribbed V Neck Tank Top', 'Xanh dương', 'S', 120000, 1);
+          INSERT INTO orders (
+              code, subtotal, shipping_fee, total, shipping_method, payment_method, status, 
+              shipping_full_name, shipping_phone, shipping_email, shipping_address, shipping_province, created_at
+          ) VALUES (
+              'HN261015-8821', 490000, 0, 490000, 'standard', 'cod', 'Đang xử lý',
+              'Nguyễn Thu Trang', '0912345678', 'khachhang@gmail.com', '456 Hai Bà Trưng, Phường Tân Định, Quận 1', 'TP. Hồ Chí Minh', '2026-10-17 16:48:30'
+          )
+        `);
+        const id2Res = this.query("SELECT id FROM orders WHERE code = 'HN261015-8821'");
+        if (id2Res.length > 0) {
+          this.run(`
+            INSERT INTO order_items (order_id, product_id, product_name, color, size, unit_price, quantity)
+            VALUES (?, 5, 'Áo sơ mi linen kẻ sọc tay dài Striped Long Sleeves Shirt', 'Trắng', 'FS', 490000, 1);
+          `, [id2Res[0].id]);
+        }
+      } else {
+        // Luôn đảm bảo đơn HN261015-8821 gắn chính xác với email khachhang@gmail.com
+        this.run(`
+          UPDATE orders 
+          SET shipping_email = 'khachhang@gmail.com',
+              shipping_full_name = 'Nguyễn Thu Trang',
+              shipping_phone = '0912345678'
+          WHERE code = 'HN261015-8821'
         `);
       }
+
+      // ĐẢM BẢO TÀI KHOẢN khachhang@gmail.com LUÔN CÓ ĐƠN HÀNG TRONG BẢNG ORDERS
+      const khOrders = this.query("SELECT id FROM orders WHERE LOWER(TRIM(shipping_email)) = 'khachhang@gmail.com'");
+      if (!khOrders || khOrders.length === 0) {
+        const uniqueCode = 'HN261015-' + Math.floor(1000 + Math.random() * 9000);
+        this.run(`
+          INSERT INTO orders (
+              code, subtotal, shipping_fee, total, shipping_method, payment_method, status, 
+              shipping_full_name, shipping_phone, shipping_email, shipping_address, shipping_province, created_at
+          ) VALUES (
+              ?, 490000, 0, 490000, 'standard', 'cod', 'Đang xử lý',
+              'Nguyễn Thu Trang', '0912345678', 'khachhang@gmail.com', '456 Hai Bà Trưng, Phường Tân Định, Quận 1', 'TP. Hồ Chí Minh', '2026-10-17 16:48:30'
+          )
+        `, [uniqueCode]);
+        const newKhRes = this.query("SELECT id FROM orders WHERE code = ?", [uniqueCode]);
+        if (newKhRes.length > 0) {
+          this.run(`
+            INSERT INTO order_items (order_id, product_id, product_name, color, size, unit_price, quantity)
+            VALUES (?, 5, 'Áo sơ mi linen kẻ sọc tay dài Striped Long Sleeves Shirt', 'Trắng', 'FS', 490000, 1)
+          `, [newKhRes[0].id]);
+        }
+      }
+
+      this.persist();
     } catch (e) {
       console.warn('ensureAuthSchema warning:', e);
     }

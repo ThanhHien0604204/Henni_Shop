@@ -5,36 +5,148 @@
 
 // Bảng màu hex tương ứng cho các màu sắc thời trang của Henni Shop
 const COLOR_HEX_MAP = {
+  // Trắng / Kem / Be / Nude
   'trắng': '#FFFFFF',
-  'đen': '#111827',
+  'trắng tinh': '#FFFFFF',
+  'trắng ngà': '#FBFBF9',
+  'trắng sứ': '#FDFDFD',
+  'kem': '#FAF6EE',
+  'màu kem': '#FAF6EE',
+  'be': '#E6D7C3',
+  'màu be': '#E6D7C3',
+  'nude': '#E8D5C4',
+  'cát': '#D7C4B7',
+
+  // Đen / Xám / Ghi
+  'đen': '#1C1917',
+  'đen tuyền': '#0F172A',
   'đen chấm bi': '#1F2937',
+  'xám': '#9CA3AF',
+  'xám khói': '#6B7280',
+  'xám nhạt': '#D1D5DB',
+  'xám đậm': '#4B5563',
+  'ghi': '#9CA3AF',
+
+  // Đỏ / Rượu / Mận
+  'đỏ': '#DC2626',
+  'đỏ tươi': '#EF4444',
+  'đỏ đô': '#991B1B',
+  'đỏ rượu': '#881337',
+  'đỏ mận': '#701A75',
+  'rượu vang': '#881337',
+  'burgundy': '#800020',
+  'maroon': '#800000',
+
+  // Hồng
+  'hồng': '#F472B6',
+  'hồng phấn': '#FBCFE8',
+  'hồng pastel': '#FDF2F8',
+  'hồng cánh sen': '#EC4899',
+  'hồng đất': '#BE185D',
+  'hồng nhạt': '#FCE7F3',
+
+  // Nâu / Da bò / Camel
+  'nâu': '#6B4423',
+  'nâu tây': '#78350F',
+  'nâu đất': '#5C381E',
+  'nâu bò': '#92400E',
+  'nâu nhạt': '#A16207',
+  'camel': '#C4A07C',
+  'caramel': '#B45309',
+
+  // Xanh dương / Navy / Jean
   'xanh dương': '#2563EB',
   'xanh navy': '#1E3A8A',
-  'xanh lá': '#16A34A',
-  'xanh quilt': '#3B82F6',
+  'xanh đen': '#0F172A',
+  'xanh biển': '#0284C7',
+  'xanh coban': '#1D4ED8',
   'xanh baby': '#93C5FD',
   'xanh nhạt': '#BAE6FD',
-  'vàng': '#EAB308',
-  'xám': '#6B7280',
-  'kem': '#FEF3C7'
+  'xanh quilt': '#3B82F6',
+  'xanh da trời': '#38BDF8',
+  'jean': '#4B6B94',
+
+  // Xanh lá / Rêu / Bơ / Mint
+  'xanh lá': '#10B981',
+  'xanh rêu': '#4D7C0F',
+  'xanh olive': '#3F6212',
+  'xanh bộ đội': '#365314',
+  'xanh bơ': '#84CC16',
+  'xanh mint': '#6EE7B7',
+  'xanh pastel': '#A7F3D0',
+  'xanh ngọc': '#14B8A6',
+  'xanh lục': '#059669',
+
+  // Vàng / Cam
+  'vàng': '#FBBF24',
+  'vàng chanh': '#FACC15',
+  'vàng pastel': '#FEF08A',
+  'vàng nghệ': '#D97706',
+  'vàng nhạt': '#FEF9C3',
+  'cam': '#F97316',
+  'cam đất': '#EA580C',
+  'cam đào': '#FB923C',
+  'cam san hô': '#FF7F50',
+
+  // Tím
+  'tím': '#8B5CF6',
+  'tím pastel': '#DDD6FE',
+  'tím khoai môn': '#C4B5FD',
+  'tím than': '#581C87',
+  'tím nhạt': '#EDE9FE',
+  'lavender': '#E9D5FF',
+
+  // Họa tiết đặc biệt
+  'họa tiết hoa': 'linear-gradient(135deg, #fbcfe8, #a7f3d0)',
+  'hoa nhí': 'linear-gradient(135deg, #fbcfe8, #fed7aa)',
+  'kẻ sọc': 'repeating-linear-gradient(45deg, #e5e7eb, #e5e7eb 3px, #111827 3px, #111827 6px)'
 };
+
+/**
+ * Lấy mã màu CSS từ tên màu với thuật toán nhận diện thông minh
+ */
+function getColorHex(colorName) {
+  if (!colorName) return '#E5E7EB';
+  const raw = String(colorName).trim();
+  const key = raw.toLowerCase();
+
+  // 1. Khớp chính xác trong từ điển
+  if (COLOR_HEX_MAP[key]) return COLOR_HEX_MAP[key];
+
+  // 2. Nếu người dùng nhập mã hex trực tiếp (VD: #ff0000, #333)
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(raw)) return raw;
+
+  // 3. Khớp thông minh theo từ khóa tiếng Việt / tiếng Anh
+  if (key.includes('đỏ') || key.includes('red') || key.includes('mận') || key.includes('rượu') || key.includes('burgundy')) return '#DC2626';
+  if (key.includes('hồng') || key.includes('pink')) return '#F472B6';
+  if (key.includes('cam') || key.includes('orange')) return '#F97316';
+  if (key.includes('vàng') || key.includes('yellow')) return '#FBBF24';
+  if (key.includes('tím') || key.includes('purple') || key.includes('violet') || key.includes('lavender')) return '#8B5CF6';
+  if (key.includes('nâu') || key.includes('brown') || key.includes('bò') || key.includes('caramel') || key.includes('camel')) return '#6B4423';
+  if (key.includes('be') || key.includes('beige') || key.includes('nude') || key.includes('cát')) return '#E6D7C3';
+  if (key.includes('kem') || key.includes('cream')) return '#FAF6EE';
+  if (key.includes('rêu') || key.includes('moss') || key.includes('olive')) return '#4D7C0F';
+  if (key.includes('navy')) return '#1E3A8A';
+  if (key.includes('xanh lá') || key.includes('green') || key.includes('lục') || key.includes('bơ') || key.includes('mint')) return '#10B981';
+  if (key.includes('xanh') || key.includes('blue') || key.includes('jean')) return '#2563EB';
+  if (key.includes('đen') || key.includes('black')) return '#1C1917';
+  if (key.includes('trắng') || key.includes('white')) return '#FFFFFF';
+  if (key.includes('xám') || key.includes('ghi') || key.includes('gray') || key.includes('grey')) return '#9CA3AF';
+  if (key.includes('hoa')) return 'linear-gradient(135deg, #fbcfe8, #a7f3d0)';
+  if (key.includes('sọc') || key.includes('kẻ') || key.includes('stripe')) return 'repeating-linear-gradient(45deg, #e5e7eb, #e5e7eb 3px, #111827 3px, #111827 6px)';
+
+  return '#D1D5DB';
+}
 
 /**
  * Định dạng số thành tiền tệ VNĐ: ví dụ 590000 -> 590.000₫
  */
 function formatCurrency(amount) {
-  if (amount === null || amount === undefined) return '';
+  if (amount === null || amount === undefined || isNaN(amount)) return '0₫';
   return new Intl.NumberFormat('vi-VN').format(amount) + '₫';
 }
-
-/**
- * Lấy mã màu CSS từ tên màu
- */
-function getColorHex(colorName) {
-  if (!colorName) return '#E5E7EB';
-  const key = colorName.trim().toLowerCase();
-  return COLOR_HEX_MAP[key] || '#D1D5DB';
-}
+window.formatCurrency = formatCurrency;
+window.getColorHex = getColorHex;
 
 /**
  * Đọc tham số từ URL
@@ -57,33 +169,58 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+// Dọn dẹp khóa giỏ hàng dùng chung cũ (nếu có từ phiên bản trước) để phân tách riêng biệt 100%
+try {
+  localStorage.removeItem('henni_cart_items');
+} catch (e) {}
+
 /**
- * Lấy giỏ hàng từ localStorage
+ * Lấy khóa lưu trữ giỏ hàng trong localStorage phân biệt riêng theo từng tài khoản
+ * - Khách vãng lai (chưa đăng nhập): 'henni_cart_guest'
+ * - Tài khoản đã đăng nhập: 'henni_cart_user_<id>' (hoặc email)
+ */
+function getCartStorageKey() {
+  const user = window.Auth ? window.Auth.getCurrentUser() : null;
+  if (user) {
+    if (user.id) return `henni_cart_user_${user.id}`;
+    if (user.email) return `henni_cart_user_${encodeURIComponent(user.email)}`;
+    if (user.username) return `henni_cart_user_${encodeURIComponent(user.username)}`;
+  }
+  return 'henni_cart_guest';
+}
+window.getCartStorageKey = getCartStorageKey;
+
+/**
+ * Lấy giỏ hàng từ localStorage của tài khoản hiện tại
  */
 function getCartItems() {
   try {
-    const raw = localStorage.getItem('henni_cart_items');
+    const key = getCartStorageKey();
+    const raw = localStorage.getItem(key);
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
     console.error('Lỗi đọc giỏ hàng:', e);
     return [];
   }
 }
+window.getCartItems = getCartItems;
 
 /**
- * Lưu giỏ hàng vào localStorage và cập nhật badge
+ * Lưu giỏ hàng vào localStorage cho tài khoản hiện tại và cập nhật badge
  */
 function saveCartItems(items) {
   try {
-    localStorage.setItem('henni_cart_items', JSON.stringify(items));
+    const key = getCartStorageKey();
+    localStorage.setItem(key, JSON.stringify(items));
     updateCartBadge();
   } catch (e) {
     console.error('Lỗi lưu giỏ hàng:', e);
   }
 }
+window.saveCartItems = saveCartItems;
 
 /**
- * Cập nhật số lượng trên icon giỏ hàng ở Header
+ * Cập nhật số lượng trên icon giỏ hàng ở Header theo tài khoản hiện tại
  */
 function updateCartBadge() {
   const items = getCartItems();
@@ -93,6 +230,7 @@ function updateCartBadge() {
     badgeEl.textContent = totalCount;
   }
 }
+window.updateCartBadge = updateCartBadge;
 
 /**
  * Hiển thị Toast thông báo
@@ -211,9 +349,13 @@ function createProductCardHtml(product) {
   let swatchesHtml = '';
   if (colors && colors.length > 0) {
     swatchesHtml = `<div class="product-color-swatches">` + 
-      colors.map(c => `
-        <span class="color-swatch-dot" style="background-color: ${getColorHex(c.color)}" title="${escapeHtml(c.color)}"></span>
-      `).join('') + 
+      colors.map(c => {
+        const hex = getColorHex(c.color);
+        const isGradient = hex.includes('gradient');
+        const bgProp = isGradient ? `background: ${hex};` : `background-color: ${hex};`;
+        const borderProp = (hex === '#FFFFFF' || hex.toLowerCase() === '#faf6ee' || hex.toLowerCase() === '#fdfbf9') ? 'border: 1px solid #d1c7bc;' : '';
+        return `<span class="color-swatch-dot" style="${bgProp} ${borderProp}" title="${escapeHtml(c.color)}"></span>`;
+      }).join('') + 
       `</div>`;
   }
 
@@ -247,14 +389,20 @@ function createProductCardHtml(product) {
             <button type="button" class="variant-popup-close" onclick="closeQuickVariantPicker(${product.id}, event)" title="Đóng">&times;</button>
           </div>
           <div class="variant-color-list" id="color-list-${product.id}">
-            ${colors.map(c => `
+            ${colors.map(c => {
+              const hex = getColorHex(c.color);
+              const isGradient = hex.includes('gradient');
+              const bgProp = isGradient ? `background: ${hex};` : `background-color: ${hex};`;
+              const borderProp = (hex === '#FFFFFF' || hex.toLowerCase() === '#faf6ee' || hex.toLowerCase() === '#fdfbf9') ? 'border: 1px solid #d1c7bc;' : '';
+              return `
               <button type="button" class="variant-color-dot" 
-                      style="background-color: ${getColorHex(c.color)}" 
+                      style="${bgProp} ${borderProp}" 
                       title="${escapeHtml(c.color)}"
                       data-color="${escapeHtml(c.color)}"
                       onclick="selectCardVariantColor(${product.id}, '${escapeHtml(c.color)}', this, event)">
               </button>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
 
           <div class="variant-popup-header" style="margin-top: 10px;">
@@ -660,14 +808,12 @@ window.Auth = {
     localStorage.removeItem('henni_current_user');
     sessionStorage.removeItem('henni_current_user');
     window.updateAuthUI();
-    showToast('Đã đăng xuất tài khoản thành công!', 'info');
+    showToast('Đã đăng xuất tài khoản thành công! Đang chuyển về trang đăng nhập...', 'info');
     
-    // Nếu đang ở trang admin, điều hướng ngay về trang đăng nhập
-    if (window.location.pathname.includes('admin.html')) {
-      setTimeout(() => {
-        window.location.href = 'dang-nhap.html?redirect=admin.html';
-      }, 400);
-    }
+    // Luôn điều hướng về trang đăng nhập sau khi đăng xuất
+    setTimeout(() => {
+      window.location.href = 'dang-nhap.html';
+    }, 300);
   },
 
   isAdmin() {
@@ -675,56 +821,99 @@ window.Auth = {
     return !!(user && (user.role === 'admin' || user.username === 'admin'));
   },
 
-  login(usernameOrEmail, password) {
-    if (!usernameOrEmail || !password) {
-      return { success: false, message: 'Vui lòng nhập đầy đủ Tên đăng nhập/Email và Mật khẩu!' };
+  // Biểu thức chính quy kiểm tra định dạng email tiêu chuẩn
+  isValidEmail(email) {
+    if (!email || typeof email !== 'string') return false;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email.trim());
+  },
+
+  login(email, password) {
+    if (!email || !password) {
+      return { success: false, message: 'Vui lòng nhập đầy đủ Email và Mật khẩu!' };
     }
-    const val = usernameOrEmail.trim();
+    const cleanEmail = email.trim();
+    
+    // BẮT BUỘC ĐÚNG ĐỊNH DẠNG EMAIL
+    if (!this.isValidEmail(cleanEmail)) {
+      return { success: false, message: 'Vui lòng nhập đúng cấu trúc địa chỉ email (ví dụ: example@gmail.com)!' };
+    }
+
+    // CHỈ CHO PHÉP ĐĂNG NHẬP BẰNG ĐÚNG CHUẨN EMAIL (Phân biệt chữ hoa / chữ thường chính xác theo tài khoản đã đăng ký)
     const users = window.dbManager.query(
-      "SELECT * FROM users WHERE (username = ? OR email = ?) AND password = ?",
-      [val, val, password]
+      "SELECT * FROM users WHERE email = ? AND password = ?",
+      [cleanEmail, password]
     );
 
     if (users && users.length > 0) {
-      return { success: true, user: users[0] };
+      // Đảm bảo so khớp chính xác từng ký tự chữ hoa/thường (case-sensitive) trong JavaScript
+      const matchedUser = users.find(u => u.email === cleanEmail && u.password === password);
+      if (matchedUser) {
+        return { success: true, user: matchedUser };
+      }
     }
-    return { success: false, message: 'Tên đăng nhập hoặc mật khẩu không chính xác!' };
+    return { success: false, message: 'Email hoặc mật khẩu không chính xác!' };
   },
 
   register({ username, password, fullName, email, phone }) {
-    if (!username || !password || !fullName || !email) {
-      return { success: false, message: 'Vui lòng điền đầy đủ các trường thông tin bắt buộc!' };
+    if (!password || !fullName || !email || !phone) {
+      return { success: false, message: 'Vui lòng điền đầy đủ các trường thông tin bắt buộc (bao gồm Số điện thoại)!' };
     }
-    const uName = username.trim().toLowerCase();
-    const mail = email.trim().toLowerCase();
+    const cleanPhone = phone.trim();
+    if (!cleanPhone) {
+      return { success: false, message: 'Vui lòng nhập Số điện thoại!' };
+    }
+    const cleanPhoneDigits = cleanPhone.replace(/[\s.-]/g, '');
+    const phoneRegex = /^(0|\+84)[0-9]{9,10}$/;
+    if (!phoneRegex.test(cleanPhoneDigits)) {
+      return { success: false, message: 'Số điện thoại không đúng định dạng (ví dụ: 0912345678)!' };
+    }
+
+    const rawEmail = email.trim();
+    const mailNormalized = rawEmail.toLowerCase();
+
+    // BẮT BUỘC ĐÚNG ĐỊNH DẠNG EMAIL
+    if (!this.isValidEmail(mailNormalized)) {
+      return { success: false, message: 'Địa chỉ Email không đúng cấu trúc (ví dụ: name@example.com)!' };
+    }
+
+    let uName = (username || mailNormalized.split('@')[0]).trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+    if (!uName) uName = 'user' + Math.floor(Math.random() * 10000);
 
     if (password.length < 6) {
       return { success: false, message: 'Mật khẩu phải có độ dài tối thiểu từ 6 ký tự trở lên!' };
     }
 
-    // Không cho phép đăng ký trùng với admin hoặc username có sẵn
-    const existing = window.dbManager.query(
-      "SELECT * FROM users WHERE LOWER(username) = ? OR LOWER(email) = ?",
-      [uName, mail]
+    // Kiểm tra trùng email (so sánh không phân biệt hoa thường)
+    const existingEmail = window.dbManager.query(
+      "SELECT * FROM users WHERE LOWER(email) = ?",
+      [mailNormalized]
     );
-
-    if (existing && existing.length > 0) {
-      if (existing[0].username.toLowerCase() === uName) {
-        return { success: false, message: 'Tên đăng nhập này đã tồn tại, vui lòng chọn tên khác!' };
-      }
-      return { success: false, message: 'Email này đã được sử dụng, vui lòng chọn email khác!' };
+    if (existingEmail && existingEmail.length > 0) {
+      return { success: false, message: 'Email này đã được sử dụng, vui lòng chọn email khác hoặc Đăng nhập!' };
     }
 
+    // Đảm bảo username không trùng lặp
+    let finalUName = uName;
+    const existingUName = window.dbManager.query(
+      "SELECT * FROM users WHERE LOWER(username) = ?",
+      [finalUName]
+    );
+    if (existingUName && existingUName.length > 0) {
+      finalUName = `${uName}_${Math.floor(Math.random() * 10000)}`;
+    }
+
+    // LƯU NGUYÊN BẢN CHỮ HOA / CHỮ THƯỜNG CỦA EMAIL (rawEmail)
     const ok = window.dbManager.run(
       "INSERT INTO users (username, password, full_name, email, phone, role) VALUES (?, ?, ?, ?, ?, 'customer')",
-      [uName, password, fullName.trim(), mail, phone ? phone.trim() : '']
+      [finalUName, password, fullName.trim(), rawEmail, cleanPhone]
     );
 
     if (ok) {
-      const created = window.dbManager.query("SELECT * FROM users WHERE LOWER(username) = ?", [uName]);
+      const created = window.dbManager.query("SELECT * FROM users WHERE email = ?", [rawEmail]);
       return { success: true, user: created[0] };
     }
-    return { success: false, message: 'Có lỗi xảy ra khi lưu vào SQLite, vui lòng thử lại!' };
+    return { success: false, message: 'Có lỗi xảy ra khi lưu vào cơ sở dữ liệu, vui lòng thử lại!' };
   }
 };
 
@@ -735,6 +924,9 @@ window.updateAuthUI = function() {
   const user = window.Auth.getCurrentUser();
   const userBtn = document.getElementById('header-user-btn');
   const userMenuDropdown = document.getElementById('user-dropdown-menu');
+
+  // Luôn cập nhật lại số lượng giỏ hàng tương ứng với tài khoản hiện tại
+  updateCartBadge();
 
   if (!userBtn) return;
 
@@ -788,7 +980,7 @@ window.updateAuthUI = function() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
             <span>Đăng nhập</span>
           </a>
-          <a href="dang-nhap.html?mode=register" class="user-dropdown-item">
+          <a href="dang-ky.html" class="user-dropdown-item">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>Đăng ký</span>
           </a>
@@ -865,5 +1057,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Khởi động Database
   window.dbManager.init();
+});
+
+// Lắng nghe sự kiện storage để đồng bộ giỏ hàng và trạng thái tài khoản tức thì giữa các tab
+window.addEventListener('storage', (e) => {
+  if (e.key === 'henni_current_user' || (e.key && e.key.startsWith('henni_cart_'))) {
+    if (typeof updateCartBadge === 'function') updateCartBadge();
+    if (typeof window.updateAuthUI === 'function') window.updateAuthUI();
+    if (typeof renderCartPage === 'function' && document.getElementById('cart-items-list')) {
+      renderCartPage();
+    }
+  }
 });
 

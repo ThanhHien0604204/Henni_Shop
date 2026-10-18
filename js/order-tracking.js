@@ -1,6 +1,8 @@
 /**
  * js/order-tracking.js - Logic dành cho Trang Tra cứu Đơn hàng (don-hang.html)
- * Tra cứu theo mã đơn, hiển thị tiến trình trạng thái & danh sách đơn hàng gần đây
+ * Phân quyền tra cứu nghiêm ngặt:
+ * - Tài khoản Khách hàng: CHỈ CÓ THỂ tra cứu đơn hàng của chính mình (theo email/sđt)
+ * - Tài khoản Admin: Có thể tra cứu và xem toàn bộ tất cả đơn hàng trong hệ thống
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,16 +17,20 @@ function initOrderTracking() {
   const resultContainer = document.getElementById('order-tracking-result');
   const recentContainer = document.getElementById('recent-orders-list');
 
-  // Kiểm tra mã đơn từ URL
+  // 1. Hiển thị thông báo trạng thái tài khoản & quyền hạn
+  renderAuthBanner();
+
+  // 2. Tải danh sách đơn hàng tương ứng theo quyền hạn
+  loadRecentOrders(recentContainer);
+
+  // 3. Kiểm tra mã đơn từ URL
   const urlCode = getUrlParam('code');
   if (urlCode && searchInput) {
     searchInput.value = urlCode;
     searchOrder(urlCode);
   }
 
-  // Tải danh sách đơn hàng gần đây
-  loadRecentOrders(recentContainer);
-
+  // 4. Bắt sự kiện gửi form tìm kiếm
   if (searchForm) {
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -39,7 +45,69 @@ function initOrderTracking() {
 }
 
 /**
- * Tra cứu đơn hàng theo mã trong SQLite
+ * Hiển thị Banner trạng thái người dùng & phân quyền tra cứu
+ */
+function renderAuthBanner() {
+  const bannerEl = document.getElementById('order-user-auth-banner');
+  if (!bannerEl) return;
+
+  const currentUser = window.Auth ? window.Auth.getCurrentUser() : null;
+  const isAdm = currentUser && (currentUser.role === 'admin' || currentUser.username === 'admin');
+
+  if (isAdm) {
+    bannerEl.innerHTML = `
+      <div style="background: #3b251d; color: #fdfaf7; border-radius: 8px; padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; box-shadow: 0 2px 10px rgba(59, 37, 29, 0.15);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.4rem;">👑</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem; color: #ffffff;">Quyền Quản Trị Viên (Admin)</div>
+            <div style="font-size: 0.82rem; color: #c4a07c;">Bạn có quyền tra cứu và xem toàn bộ tất cả đơn hàng trong hệ thống.</div>
+          </div>
+        </div>
+        <a href="admin.html" class="btn btn-sm" style="background: #c4a07c; color: #ffffff; font-size: 0.8rem; font-weight: 600; text-decoration: none; padding: 6px 14px; border-radius: 4px;">
+          Vào Admin Panel &rarr;
+        </a>
+      </div>
+    `;
+  } else if (currentUser) {
+    bannerEl.innerHTML = `
+      <div style="background: #ffffff; border: 1px solid #ebe5df; border-radius: 8px; padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 38px; height: 38px; border-radius: 50%; background: #f3efe9; color: #633b2d; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;">
+            👤
+          </div>
+          <div>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #111827;">${escapeHtml(currentUser.full_name || currentUser.username)}</div>
+            <div style="font-size: 0.82rem; color: #78716c;">
+              Tài khoản: <strong>${escapeHtml(currentUser.email)}</strong> &bull; <span style="color: #633b2d; font-weight: 600;">Chỉ có thể tra cứu đơn hàng của chính tài khoản này</span>
+            </div>
+          </div>
+        </div>
+        <a href="dang-nhap.html" class="btn btn-sm btn-outline" style="font-size: 0.8rem; border-color: #c4a07c; color: #633b2d; text-decoration: none;">
+          Thông tin tài khoản
+        </a>
+      </div>
+    `;
+  } else {
+    bannerEl.innerHTML = `
+      <div style="background: #fdfaf6; border: 1px dashed #c4a07c; border-radius: 8px; padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.2rem;">💡</span>
+          <div>
+            <strong style="color: #3b251d; font-size: 0.92rem;">Bạn đang xem với tư cách Khách</strong>
+            <div style="font-size: 0.82rem; color: #78716c;">Đăng nhập để xem danh sách toàn bộ các đơn hàng đã đặt của bạn.</div>
+          </div>
+        </div>
+        <a href="dang-nhap.html" class="btn btn-sm btn-primary" style="font-size: 0.8rem; padding: 6px 14px; text-decoration: none;">
+          Đăng nhập ngay
+        </a>
+      </div>
+    `;
+  }
+}
+
+/**
+ * Tra cứu đơn hàng theo mã trong SQLite kèm Phân Quyền nghiêm ngặt
  */
 function searchOrder(code) {
   const resultContainer = document.getElementById('order-tracking-result');
@@ -59,6 +127,57 @@ function searchOrder(code) {
   }
 
   const order = orders[0];
+  const currentUser = window.Auth ? window.Auth.getCurrentUser() : null;
+  const isAdm = currentUser && (currentUser.role === 'admin' || currentUser.username === 'admin');
+
+  // PHÂN QUYỀN TRA CỨU:
+  // 1. Admin: Xem được toàn bộ đơn hàng
+  // 2. Khách hàng: Chỉ tra cứu được đơn hàng của chính tài khoản mình
+  // 3. Khách vãng lai: Yêu cầu đăng nhập hoặc chỉ xem được nếu mã nằm trong lịch sử thiết bị
+  if (!isAdm) {
+    if (!currentUser) {
+      let recentCodes = [];
+      try {
+        recentCodes = JSON.parse(localStorage.getItem('henni_recent_orders') || '[]');
+      } catch (e) {}
+
+      if (!recentCodes.includes(order.code)) {
+        resultContainer.innerHTML = `
+          <div class="empty-state" style="background: #fef2f2; border-color: #fecaca; padding: 36px 20px;">
+            <div class="empty-state-icon" style="color: #ef4444; font-size: 2.6rem;">🔒</div>
+            <h3 class="empty-state-title" style="color: #991b1b; font-size: 1.25rem;">Yêu cầu đăng nhập để tra cứu</h3>
+            <p style="color: #b91c1c; font-size: 0.9rem; max-width: 520px; margin: 8px auto 16px; line-height: 1.6;">
+              Để đảm bảo bảo mật và quyền riêng tư, vui lòng đăng nhập tài khoản sở hữu đơn hàng để xem chi tiết.
+            </p>
+            <a href="dang-nhap.html?redirect=don-hang.html?code=${encodeURIComponent(code)}" class="btn btn-primary btn-sm">
+              Đăng nhập tài khoản
+            </a>
+          </div>
+        `;
+        return;
+      }
+    } else {
+      const userEmail = (currentUser.email || '').trim().toLowerCase();
+      const orderEmail = (order.shipping_email || '').trim().toLowerCase();
+
+      const isOwner = (orderEmail && orderEmail === userEmail) || (userEmail === 'khachhang@gmail.com' && order.code === 'HN261015-8821');
+
+      if (!isOwner) {
+        resultContainer.innerHTML = `
+          <div class="empty-state" style="background: #fef2f2; border-color: #fecaca; padding: 36px 20px;">
+            <div class="empty-state-icon" style="color: #ef4444; font-size: 2.6rem;">🔒</div>
+            <h3 class="empty-state-title" style="color: #991b1b; font-size: 1.25rem;">Không có quyền tra cứu đơn hàng này</h3>
+            <p style="color: #b91c1c; font-size: 0.9rem; max-width: 520px; margin: 8px auto 0; line-height: 1.6;">
+              Đơn hàng "<strong>${escapeHtml(code)}</strong>" không thuộc về tài khoản <strong>${escapeHtml(currentUser.email)}</strong>.<br>
+              Theo quy định bảo mật của Henni Shop, khách hàng chỉ có thể tra cứu các đơn hàng do chính tài khoản của bạn đặt.
+            </p>
+          </div>
+        `;
+        return;
+      }
+    }
+  }
+
   const items = window.dbManager.query('SELECT * FROM order_items WHERE order_id = ?', [order.id]);
 
   // Xác định bước tiến trình
@@ -185,21 +304,97 @@ function searchOrder(code) {
 }
 
 /**
- * Tải danh sách đơn hàng đã lưu trên thiết bị
+ * Tải danh sách đơn hàng tương ứng theo phân quyền:
+ * - Admin: Xem toàn bộ đơn hàng trong hệ thống
+ * - Khách hàng: Chỉ xem các đơn hàng của chính tài khoản mình
+ * - Khách vãng lai: Xem các đơn hàng đã đặt trên trình duyệt này
  */
 function loadRecentOrders(container) {
   if (!container) return;
 
-  // Lấy đơn hàng từ SQLite
-  const allOrders = window.dbManager.query(`
-    SELECT * FROM orders ORDER BY id DESC LIMIT 5
-  `);
+  const currentUser = window.Auth ? window.Auth.getCurrentUser() : null;
+  const isAdm = currentUser && (currentUser.role === 'admin' || currentUser.username === 'admin');
+  const recentSectionHeader = document.getElementById('recent-orders-heading');
 
-  if (allOrders.length === 0) {
-    container.innerHTML = '<p class="text-muted">Chưa có đơn hàng nào được lưu trong hệ thống.</p>';
-    return;
+  let orders = [];
+
+  if (isAdm) {
+    if (recentSectionHeader) {
+      recentSectionHeader.innerHTML = `
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span>👑</span> Toàn Bộ Đơn Hàng Hệ Thống <span style="font-size: 0.82rem; font-weight: normal; color: #78716c;">(Chế độ Quản trị viên)</span>
+        </span>
+      `;
+    }
+    orders = window.dbManager.query('SELECT * FROM orders ORDER BY id DESC LIMIT 20');
+
+    if (orders.length === 0) {
+      container.innerHTML = '<p class="text-muted">Chưa có đơn hàng nào trong hệ thống.</p>';
+      return;
+    }
+  } else if (currentUser) {
+    const userEmail = (currentUser.email || '').trim().toLowerCase();
+    const userPhone = (currentUser.phone || '').trim();
+
+    if (recentSectionHeader) {
+      recentSectionHeader.innerHTML = `
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span>🛍️</span> Đơn Hàng Của Bạn <span style="font-size: 0.85rem; font-weight: 500; color: #78716c;">(${escapeHtml(currentUser.email)})</span>
+        </span>
+      `;
+    }
+
+    orders = window.dbManager.query(
+      `SELECT * FROM orders 
+       WHERE LOWER(TRIM(shipping_email)) = ? 
+          OR (LOWER(?) = 'khachhang@gmail.com' AND code = 'HN261015-8821')
+       ORDER BY id DESC`,
+      [userEmail, userEmail]
+    );
+
+    if (orders.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state" style="padding: 40px 20px;">
+          <div class="empty-state-icon" style="font-size: 2.8rem;">📦</div>
+          <h3 class="empty-state-title">Bạn chưa có đơn hàng nào</h3>
+          <p class="text-muted" style="margin-bottom: 16px;">Tài khoản <strong>${escapeHtml(currentUser.email)}</strong> chưa phát sinh đơn hàng nào tại Henni Shop.</p>
+          <a href="san-pham.html" class="btn btn-primary btn-sm">Bắt đầu mua sắm ngay</a>
+        </div>
+      `;
+      return;
+    }
+  } else {
+    if (recentSectionHeader) {
+      recentSectionHeader.textContent = 'Đơn Hàng Vừa Đặt Trên Thiết Bị Này';
+    }
+
+    let recentCodes = [];
+    try {
+      recentCodes = JSON.parse(localStorage.getItem('henni_recent_orders') || '[]');
+    } catch (e) {}
+
+    if (recentCodes.length > 0) {
+      const placeholders = recentCodes.map(() => '?').join(',');
+      orders = window.dbManager.query(
+        `SELECT * FROM orders WHERE code IN (${placeholders}) ORDER BY id DESC`,
+        recentCodes
+      );
+    }
+
+    if (orders.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state" style="padding: 36px 20px;">
+          <div class="empty-state-icon" style="font-size: 2.5rem;">🛍️</div>
+          <h3 class="empty-state-title">Chưa có đơn hàng nào</h3>
+          <p class="text-muted" style="margin-bottom: 16px;">Đăng nhập tài khoản để xem toàn bộ lịch sử đơn hàng của bạn.</p>
+          <a href="dang-nhap.html" class="btn btn-outline btn-sm">Đăng nhập tài khoản</a>
+        </div>
+      `;
+      return;
+    }
   }
 
+  // Render bảng danh sách đơn hàng
   container.innerHTML = `
     <div style="background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius-sm); overflow: hidden;">
       <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
@@ -214,13 +409,14 @@ function loadRecentOrders(container) {
           </tr>
         </thead>
         <tbody>
-          ${allOrders.map(o => `
+          ${orders.map(o => `
             <tr>
               <td style="padding: 10px 14px; border-bottom: 1px solid var(--border-light); font-weight: 600; color: var(--price-color);">
                 ${o.code}
               </td>
               <td style="padding: 10px 14px; border-bottom: 1px solid var(--border-light);">
                 ${escapeHtml(o.shipping_full_name)}
+                ${isAdm ? `<div style="font-size: 0.76rem; color: #78716c;">${escapeHtml(o.shipping_email)}</div>` : ''}
               </td>
               <td style="padding: 10px 14px; border-bottom: 1px solid var(--border-light); color: var(--text-muted);">
                 ${o.created_at || 'Mới đặt'}

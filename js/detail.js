@@ -81,7 +81,7 @@ function renderBreadcrumbs() {
   bc.innerHTML = `
     <a href="index.html">Trang chủ</a>
     <span>/</span>
-    <a href="san-pham.html?category=${encodeURIComponent(currentProduct.category_slug)}">${escapeHtml(currentProduct.category_name)}</a>
+    <a href="san-pham.html">Cửa hàng sản phẩm</a>
     <span>/</span>
     <span>${escapeHtml(currentProduct.name)}</span>
   `;
@@ -180,12 +180,18 @@ function renderProductInfo() {
           <span class="detail-option-val" id="selected-color-label">${escapeHtml(selectedColor)}</span>
         </div>
         <div class="detail-color-pills" id="detail-color-pills">
-          ${colors.map((c, i) => `
+          ${colors.map((c, i) => {
+            const hex = getColorHex(c.color);
+            const isGradient = hex.includes('gradient');
+            const bgProp = isGradient ? `background: ${hex};` : `background-color: ${hex};`;
+            const borderProp = (hex === '#FFFFFF' || hex.toLowerCase() === '#faf6ee' || hex.toLowerCase() === '#fdfbf9') ? 'border: 1px solid #d1c7bc;' : '';
+            return `
             <button type="button" class="color-pill-btn ${i === 0 ? 'active' : ''}" data-color="${escapeHtml(c.color)}">
-              <span class="color-swatch-dot" style="background-color: ${getColorHex(c.color)}"></span>
+              <span class="color-swatch-dot" style="${bgProp} ${borderProp}"></span>
               <span>${escapeHtml(c.color)}</span>
             </button>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
       </div>
     `;

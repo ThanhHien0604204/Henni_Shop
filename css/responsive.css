@@ -142,8 +142,28 @@
     flex-shrink: 0;
   }
 
-  .cart-checkout-layout {
+  .cart-checkout-layout,
+  .cart-page-grid,
+  .checkout-page-grid {
     grid-template-columns: 1fr;
+  }
+
+  .cart-card-item {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .cart-card-content {
+    padding-right: 28px;
+  }
+
+  .cart-card-price {
+    position: static;
+    margin-top: 8px;
+    width: 100%;
+    text-align: right;
   }
 
   .cart-item-row {

@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giỏ Hàng & Thanh Toán - Henni Shop</title>
+  <title>Giỏ Hàng - Henni Shop</title>
   <link rel="icon" type="image/png" href="images/logo.png">
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/pages.css">
@@ -63,175 +67,164 @@
     </div>
   </header>
 
-  <!-- Nội dung Giỏ Hàng & Thanh Toán -->
-  <main class="section-py">
+  <!-- Nội dung Giỏ Hàng Chuẩn Mẫu -->
+  <main class="section-py" style="min-height: 60vh;">
     <div class="container">
-      <div class="section-title-wrap" style="text-align: left; margin-bottom: 24px;">
-        <h1 class="section-title serif" style="font-size: 1.85rem;">Giỏ Hàng & Đặt Hàng</h1>
-      </div>
-
-      <!-- Thanh tiến trình Freeship 800.000₫ -->
-      <div class="freeship-meter-card" id="freeship-meter-card">
-        <div class="freeship-meter-info" id="freeship-message-text">
-          Đang tính toán điều kiện miễn phí vận chuyển...
-        </div>
-        <div class="freeship-progress-bar">
-          <div class="freeship-progress-fill" id="freeship-progress-fill" style="width: 0%;"></div>
-        </div>
+      
+      <!-- Tiêu đề GIỎ HÀNG đồng bộ font Cảm nhận khách hàng / Khách hàng nói gì về Henni -->
+      <div class="cart-header-section" style="margin-bottom: 26px;">
+        <span class="testimonials-script-subtitle" style="text-align: left; margin-bottom: 4px; font-size: 1.4rem;">Túi đồ của bạn</span>
+        <h1 class="cart-main-title">
+          Giỏ Hàng <span class="cart-count-paren" id="cart-title-count">(0)</span>
+        </h1>
       </div>
 
       <!-- Trạng thái giỏ hàng rỗng -->
-      <div class="empty-state hidden" id="cart-empty-state">
-        <div class="empty-state-icon">🛍️</div>
-        <h2 class="empty-state-title">Giỏ hàng của bạn đang trống</h2>
-        <p class="text-muted" style="margin-bottom: 24px;">Hãy khám phá các mẫu thời trang mới nhất để chọn cho mình trang phục ưng ý nhé!</p>
-        <a href="san-pham.html" class="btn btn-primary btn-lg">Khám phá cửa hàng</a>
+      <div class="empty-state hidden" id="cart-empty-state" style="padding: 60px 20px; text-align: center;">
+        <div class="empty-state-icon" style="font-size: 3.5rem; margin-bottom: 12px;">🛍️</div>
+        <h2 class="empty-state-title" style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px;">Giỏ hàng của bạn đang trống</h2>
+        <p class="text-muted" style="margin-bottom: 24px; font-size: 0.95rem;">Hãy khám phá các mẫu thời trang mới nhất để chọn cho mình trang phục ưng ý nhé!</p>
+        <a href="san-pham.html" class="btn btn-primary btn-lg" style="padding: 12px 28px;">Khám phá cửa hàng</a>
       </div>
 
-      <!-- Giao diện 2 cột Checkout 1 trang -->
-      <div class="cart-checkout-layout" id="cart-checkout-content">
-        <!-- Cột 1: Danh sách sản phẩm trong giỏ -->
+      <!-- Khung 2 cột Giỏ hàng -->
+      <div class="cart-page-grid" id="cart-page-grid">
+        
+        <!-- Cột 1: Tiến trình Freeship & Danh sách sản phẩm -->
         <div>
-          <div class="cart-items-wrapper" id="cart-items-list">
-            <!-- Render danh sách món hàng qua cart.js -->
+          <!-- Thanh Freeship tương tự như hình -->
+          <div class="cart-freeship-box" id="cart-freeship-box">
+            <div class="cart-freeship-top">
+              <span class="cart-freeship-truck">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              </span>
+              <span id="cart-freeship-message">✓ Bạn được miễn phí vận chuyển</span>
+            </div>
+            <div class="cart-freeship-bar-wrap">
+              <div class="cart-freeship-bar-fill" id="cart-freeship-bar-fill" style="width: 100%;"></div>
+            </div>
+            <div class="cart-freeship-labels">
+              <span id="cart-freeship-subtotal-label">0₫</span>
+              <span id="cart-freeship-max-label">0₫</span>
+            </div>
           </div>
-          <div style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="san-pham.html" class="btn btn-secondary btn-sm">
+
+          <!-- Danh sách thẻ sản phẩm -->
+          <div class="cart-items-column" id="cart-items-list">
+            <!-- Nạp qua js/cart.js -->
+          </div>
+
+          <div style="margin-top: 20px;">
+            <a href="san-pham.html" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
               &larr; Tiếp tục chọn thêm sản phẩm
             </a>
           </div>
         </div>
 
-        <!-- Cột 2: Form thông tin giao hàng & Tổng kết -->
+        <!-- Cột 2: Tóm tắt đơn hàng & Nút Thanh toán -->
         <div>
-          <div class="checkout-form-card">
-            <h3 class="checkout-card-title">Thông Tin Giao Hàng</h3>
-            
-            <form id="checkout-order-form">
-              <div class="form-group">
-                <label class="form-label required">Họ và tên</label>
-                <input type="text" name="shipping_full_name" class="form-control" placeholder="Ví dụ: Nguyễn Thị Mai" required>
-              </div>
+          <div class="cart-summary-card">
+            <h3 class="cart-summary-heading">Tóm tắt đơn hàng</h3>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <div class="form-group">
-                  <label class="form-label required">Số điện thoại</label>
-                  <input type="tel" name="shipping_phone" class="form-control" placeholder="Ví dụ: 0912345678" required>
-                </div>
-                <div class="form-group">
-                  <label class="form-label required">Email</label>
-                  <input type="email" name="shipping_email" class="form-control" placeholder="mai@gmail.com" required>
-                </div>
-              </div>
+            <div class="cart-summary-row">
+              <span>Tạm tính</span>
+              <span class="val" id="cart-summary-subtotal">0₫</span>
+            </div>
 
-              <div class="form-group">
-                <label class="form-label required">Địa chỉ nhận hàng</label>
-                <input type="text" name="shipping_address" class="form-control" placeholder="Số nhà, tên đường, phường/xã" required>
-              </div>
+            <div class="cart-summary-row">
+              <span>Giảm giá</span>
+              <span class="val" id="cart-summary-discount">-0₫</span>
+            </div>
 
-              <div class="form-group">
-                <label class="form-label required">Tỉnh / Thành phố</label>
-                <input type="text" name="shipping_province" class="form-control" placeholder="Ví dụ: TP. Hồ Chí Minh" required>
-              </div>
+            <div class="cart-summary-row">
+              <span>Phí vận chuyển</span>
+              <span class="val-muted">Tính ở trang thanh toán</span>
+            </div>
 
-              <div class="form-group">
-                <label class="form-label">Ghi chú đơn hàng (nếu có)</label>
-                <textarea name="shipping_note" class="form-control" placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi giao..."></textarea>
-              </div>
+            <div class="cart-summary-total-row">
+              <span class="cart-summary-total-label">Tổng</span>
+              <span class="cart-summary-total-amount" id="cart-summary-total">0₫</span>
+            </div>
 
-              <!-- Phương thức thanh toán -->
-              <div class="form-group" style="margin-top: 20px;">
-                <label class="form-label" style="font-weight: 600;">Phương thức thanh toán</label>
-                <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
-                  <label class="filter-radio-label">
-                    <input type="radio" name="payment_method" value="cod" checked>
-                    <span>Thanh toán khi nhận hàng (COD)</span>
-                  </label>
-                  <label class="filter-radio-label">
-                    <input type="radio" name="payment_method" value="banking">
-                    <span>Chuyển khoản ngân hàng</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Khung hướng dẫn chuyển khoản -->
-              <div id="bank-transfer-info" style="display: none; background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 14px; font-size: 0.85rem; line-height: 1.7; margin-bottom: 16px;">
-                <div style="font-weight: 700; margin-bottom: 4px;">Thông tin tài khoản Henni Shop:</div>
-                <div>Ngân hàng: <strong>MB Bank (Quân Đội)</strong></div>
-                <div>Số tài khoản: <strong>999988886666</strong></div>
-                <div>Chủ tài khoản: <strong>SHOP THOI TRANG HENNI</strong></div>
-                <div style="color: var(--price-color);">Nội dung CK: <em>[Họ tên] - [SĐT]</em></div>
-              </div>
-
-              <!-- Bảng cộng tiền -->
-              <div class="order-calc-table">
-                <div class="order-calc-row">
-                  <span>Tạm tính:</span>
-                  <strong id="calc-subtotal">0₫</strong>
-                </div>
-                <div class="order-calc-row">
-                  <span>Phí vận chuyển:</span>
-                  <span id="calc-shipping">30.000₫</span>
-                </div>
-                <div class="order-calc-row total-row">
-                  <span>Tổng thanh toán:</span>
-                  <span id="calc-total" style="color: var(--price-color);">0₫</span>
-                </div>
-              </div>
-
-              <!-- Nút Hoàn tất đặt hàng -->
-              <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-submit-order">
-                HOÀN TẤT ĐẶT HÀNG
-              </button>
-            </form>
+            <a href="thanh-toan.html" class="btn-proceed-checkout" id="btn-proceed-checkout">
+              Thanh toán &rarr;
+            </a>
           </div>
         </div>
+
       </div>
+
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer Chân Trang Đồng Bộ -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
+        <!-- Cột 1: Logo & Thông tin liên hệ -->
         <div>
-          <h4 class="footer-col-title">Henni Shop</h4>
+          <div class="footer-logo-wrap" style="margin-bottom: 16px;">
+            <a href="index.html" style="display: inline-block;">
+              <img src="images/logo.png" alt="Henni Shop" class="footer-brand-logo" style="height: 38px; width: auto; object-fit: contain; filter: brightness(0) invert(1);">
+            </a>
+          </div>
           <p class="footer-desc">
             Thương hiệu thời trang nữ phong cách Minimalist Chic hiện đại, đề cao sự tinh tế, chuẩn mực đường may và tính ứng dụng cao cho phái đẹp.
           </p>
+          <div style="font-size: 0.88rem; color: rgba(250, 247, 242, 0.85); line-height: 1.8;">
+            <div>📍 Địa chỉ: 3 Hòa Bình, Bình Thới, TP. Hồ Chí Minh</div>
+            <div>📞 Hotline: 0988.123.456</div>
+            <div>✉️ Email: contact@hennishop.vn</div>
+          </div>
         </div>
+
+        <!-- Cột 2: Danh mục -->
         <div>
           <h4 class="footer-col-title">Danh mục</h4>
           <ul class="footer-links-list">
             <li><a href="san-pham.html?category=ao">Áo kiểu & Sơ mi</a></li>
-            <li><a href="san-pham.html?category=quan-1">Quần tây & Short</a></li>
-            <li><a href="san-pham.html?category=chan-vay">Chân váy</a></li>
+            <li><a href="san-pham.html?category=quan-1">Quần tây & Quần short</a></li>
+            <li><a href="san-pham.html?category=chan-vay">Chân váy ngắn & Chân váy dài</a></li>
             <li><a href="san-pham.html?category=vay">Đầm thiết kế</a></li>
+            <li><a href="san-pham.html">Tất cả sản phẩm</a></li>
           </ul>
         </div>
+
+        <!-- Cột 3: Hỗ trợ khách hàng -->
         <div>
           <h4 class="footer-col-title">Hỗ trợ khách hàng</h4>
           <ul class="footer-links-list">
             <li><a href="ve-chung-toi.html">Về chúng tôi</a></li>
             <li><a href="don-hang.html">Tra cứu đơn hàng</a></li>
-            <li><a href="dang-nhap.html">Đăng nhập / Đăng ký</a></li>
+            <li><a href="dang-nhap.html">Đăng nhập</a></li>
+            <li><a href="dang-ky.html">Đăng ký tài khoản</a></li>
             <li><a href="#">Chính sách đổi trả 7 ngày</a></li>
             <li><a href="#">Hướng dẫn chọn kích cỡ</a></li>
             <li><a href="#">Chính sách vận chuyển</a></li>
           </ul>
         </div>
+
+        <!-- Cột 4: Nhận bản tin ưu đãi -->
         <div>
-          <h4 class="footer-col-title">Nhận ưu đãi</h4>
-          <p class="footer-desc">Đăng ký để nhận thông tin sản phẩm mới nhất.</p>
-          <form class="footer-newsletter-form" onsubmit="event.preventDefault(); showToast('Cảm ơn bạn đã đăng ký!', 'success'); this.reset();">
-            <input type="email" class="footer-newsletter-input" placeholder="Email của bạn..." required>
+          <h4 class="footer-col-title">Nhận bản tin ưu đãi</h4>
+          <p class="footer-desc">
+            Đăng ký để nhận thông tin bộ sưu tập mới nhất và voucher giảm giá 10% cho đơn hàng đầu tiên.
+          </p>
+          <form class="footer-newsletter-form" onsubmit="event.preventDefault(); showToast('Cảm ơn bạn đã đăng ký nhận bản tin!', 'success'); this.reset();">
+            <input type="email" class="footer-newsletter-input" placeholder="Nhập email của bạn..." required>
             <button type="submit" class="btn btn-primary btn-sm">Gửi</button>
           </form>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <div>&copy; 2026 Henni Shop. Tất cả các quyền được bảo lưu.</div>
-        <div>Cơ sở dữ liệu SQLite Client-side với WebAssembly</div>
+        <div>&copy; 2026 Henni Shop. Tất cả các quyền được bảo lưu. Thiết kế giao diện thuần chuẩn mực Front-end.</div>
+        <div>Cơ sở dữ liệu SQLite Client-side với WebAssembly (sql.js)</div>
       </div>
     </div>
   </footer>

@@ -343,3 +343,23 @@ INSERT INTO product_images (product_id, url, sort_order) VALUES
 (20, 'images/originvol3-1/03.jpg', 2),
 (20, 'images/originvol3-1/04.jpg', 3),
 (20, 'images/originvol3-1/05.jpg', 4);
+
+-- Users
+INSERT OR IGNORE INTO users (id, username, password, full_name, email, phone, role) VALUES 
+(1, 'admin', 'admin123', 'Quản Trị Viên Henni', 'admin@hennishop.vn', '0988123456', 'admin'),
+(2, 'khachhang', '123456', 'Nguyễn Thu Trang', 'khachhang@gmail.com', '0912345678', 'customer');
+
+-- Orders
+INSERT OR IGNORE INTO orders (
+    id, code, subtotal, shipping_fee, total, shipping_method, payment_method, status, 
+    shipping_full_name, shipping_phone, shipping_email, shipping_address, shipping_province, created_at
+) VALUES 
+(1, 'HN260920-5920', 710000, 0, 710000, 'standard', 'cod', 'Đang giao', 'nguyễn văn A', '0912345678', 'nguyenvana@gmail.com', '123 Đường Lê Lợi, Phường Bến Nghé, Quận 1', 'TP. Hồ Chí Minh', '2026-10-16 18:12:43'),
+(2, 'HN261015-8821', 490000, 0, 490000, 'standard', 'cod', 'Đang xử lý', 'Nguyễn Thu Trang', '0912345678', 'khachhang@gmail.com', '456 Hai Bà Trưng, Phường Tân Định, Quận 1', 'TP. Hồ Chí Minh', '2026-10-17 16:48:30');
+
+-- Order Items
+INSERT OR IGNORE INTO order_items (id, order_id, product_id, product_name, color, size, unit_price, quantity) VALUES 
+(1, 1, 1, 'Quần ống loe thun ren White Lace Low Waist Pants', 'Trắng', 'M', 590000, 1),
+(2, 1, 2, 'Áo sát nách cổ V phối viền ren Blue Ribbed V Neck Tank Top', 'Xanh dương', 'S', 120000, 1),
+(3, 2, 5, 'Áo sơ mi linen kẻ sọc tay dài Striped Long Sleeves Shirt', 'Trắng', 'FS', 490000, 1);
+
