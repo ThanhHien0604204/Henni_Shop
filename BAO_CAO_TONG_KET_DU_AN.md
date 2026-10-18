@@ -237,54 +237,71 @@ flowchart TD
 
 ## 4. DANH MỤC CÁC FILE TÀI LIỆU .MD VÀ VAI TRÒ
 
-Trong quy trình phát triển chuyên nghiệp của Henni Shop, hệ thống tài liệu Markdown (`.md`) đóng vai trò là "kim chỉ nam" định hướng kiến trúc, phân chia nhiệm vụ và kiểm soát chất lượng:
+Trong quy trình phát triển chuyên nghiệp của Henni Shop, hệ thống 5 tệp tài liệu Markdown (`.md`) thực tế được lưu trữ trực tiếp tại thư mục gốc dự án, đóng vai trò là "kim chỉ nam" định hướng kiến trúc, phân chia nhiệm vụ và kiểm soát chất lượng kỹ thuật từ khâu phân tích đến bàn giao sản phẩm:
 
 ```text
 d:\Henni_Shop/
-├── README.md                          # Tài liệu hướng dẫn sử dụng & Khởi chạy dự án
-├── BAO_CAO_TONG_KET_DU_AN.md          # Bản báo cáo tổng kết kỹ thuật toàn diện (Bản hiện tại)
-├── PRD.md                             # Tài liệu Yêu cầu Sản phẩm (Product Requirements Document)
-├── DESIGN.md                          # Hệ thống Thiết kế & Quy chuẩn UI/UX (Design System)
-├── ANTIGRAVITY_PROMPT_FRONTEND.md     # Hướng dẫn Kỹ thuật Kiến trúc Front-end cho AI Pair Programming
-├── INIT_DATABASE_SQLITE.sql.md        # Đặc tả Khởi tạo & Chuyển đổi dữ liệu CSDL SQLite
-└── SPEC_STOREFRONT_CLONE.md           # Bản Đặc tả Chi tiết Giao diện & Tương tác Clone
+├── antigravity_project_prompt.md      # Tài liệu Yêu cầu Kỹ thuật & Chỉ dẫn Kiến trúc Front-end cho AI
+├── sqlite_ddl_and_seed_data.md        # Tập lệnh DDL & Dữ liệu Hạt giống (Seed Data) CSDL SQLite
+├── SPEC_STOREFRONT_CLONE.md           # Bản Đặc tả Chi tiết Giao diện & Hành vi Tương tác Storefront
+├── README.md                          # Tài liệu Hướng dẫn Cài đặt, Khởi chạy & Vận hành Nền tảng
+└── BAO_CAO_TONG_KET_DU_AN.md          # Bản Báo cáo Kỹ thuật Tổng kết & Nghiệm thu Bàn giao Dự án Toàn diện
 ```
 
-### Chi tiết mục đích & vai trò từng tài liệu:
+### Chi tiết mục đích sử dụng và công dụng thực tế của từng tệp tài liệu:
 
-#### 1. `PRD.md` (Product Requirements Document - Tài liệu Yêu cầu Sản phẩm)
-* **Mục đích**: Định nghĩa bài toán nghiệp vụ, xác định đối tượng sử dụng và phạm vi dự án.
-* **Vai trò**:
-  - Xác lập chân dung người dùng: Khách vãng lai (*Guest*), Khách hàng thành viên (*Customer*), và Quản trị viên (*Admin*).
-  - Quy định rõ tiêu chí chấp nhận (*Acceptance Criteria*) cho từng tính năng: giỏ hàng, thanh toán COD/Banking, lọc đa tiêu chí, tra cứu đơn hàng.
-  - Là căn cứ nghiệm thu tính năng giữa Technical Lead và các bên liên quan.
+#### 1. `antigravity_project_prompt.md` (System Prompt & Hướng dẫn Kiến trúc Kỹ thuật Front-end)
+* **Tên tệp**: `antigravity_project_prompt.md` (Kích thước: 9.2 KB, 198 dòng).
+* **Mục đích sử dụng**: Đóng vai trò là bản đặc tả kỹ thuật kiến trúc hệ thống (System Prompt & Architecture Guidelines) dành cho Kỹ sư Front-end và mô hình lập trình cặp cùng AI (Antigravity AI Pair Programming).
+* **Công dụng & Vai trò thực tế trong dự án**:
+  - Xác lập các ràng buộc kỹ thuật cốt lõi: 100% HTML5, CSS3, JavaScript ES6+ thuần (Vanilla JS), tuyệt đối không dùng framework (no React/Vue) và không dùng máy chủ backend (no Node.js/Python server).
+  - Quy định chuẩn mực tích hợp máy ảo SQLite nhúng trong trình duyệt qua WebAssembly (`sql.js`), cơ chế nạp file nhị phân `hennishop.db`, chiến lược đồng bộ nhị phân vào `localStorage` và xây dựng class `HenniDatabase` trong `js/database.js`.
+  - Định nghĩa cây cấu trúc thư mục toàn diện của dự án (`css/`, `js/`, `data/`, `images/`), phân định rạch ròi trách nhiệm của từng file module JavaScript.
+  - Ban hành Hệ thống Thiết kế & Bảng màu CSS chuẩn (`:root` CSS Custom Properties) bao gồm màu nền (`--bg-primary`, `--bg-secondary`), màu chữ (`--text-primary`, `--text-secondary`), màu nút bấm (`--accent-color`), màu giá tiền (`--price-color: #d9383a`), bán kính bo góc và đổ bóng.
+  - Hướng dẫn logic nghiệp vụ chi tiết cho từng trang (Header counter, Slider, Instant filter, Image gallery, Cart calculation, Admin SQLite CRUD).
 
-#### 2. `DESIGN.md` (Design System & UI/UX Guidelines - Quy chuẩn Thiết kế)
-* **Mục đích**: Quy định toàn bộ tiêu chuẩn thị giác nhằm đảm bảo tính thẩm mỹ đồng bộ trên toàn bộ 10 trang web.
-* **Vai trò**:
-  - Bảng mã màu chuẩn: Nền trắng sáng (`#FFFFFF`, `#FAFAFA`), viền trung tính (`#EBE5DF`), chữ than đen (`#111827`), điểm nhấn camel (`#633B2D`, `#C4A07C`).
-  - Quy chuẩn Typography: Cặp đôi font `Playfair Display` (tiêu đề, giá trị thanh lịch) và `Inter` (nội dung, thông số rõ ràng).
-  - Quy cách nút bấm, bán kính bo góc (*Border Radius: 4px - 8px*), hiệu ứng đổ bóng (*Shadows*), thời gian chuyển động (*Transitions: 0.15s - 0.25s*).
-  - Quy chuẩn Responsive Grid 12 cột, Breakpoints cho Mobile, Tablet và Desktop.
+#### 2. `sqlite_ddl_and_seed_data.md` (Tập lệnh DDL Khởi tạo & Dữ liệu Hạt giống CSDL SQLite)
+* **Tên tệp**: `sqlite_ddl_and_seed_data.md` (Kích thước: 25.0 KB, 328 dòng).
+* **Mục đích sử dụng**: Cung cấp trọn vẹn kịch bản cấu trúc bảng (DDL) và toàn bộ dữ liệu mẫu ban đầu (Seed Data) phục vụ khởi tạo cơ sở dữ liệu SQLite cho hệ thống.
+* **Công dụng & Vai trò thực tế trong dự án**:
+  - Chứa tập lệnh DDL chuẩn mực khởi tạo 8-9 bảng quan hệ chuẩn 3NF: `categories`, `products`, `product_images`, `product_sizes`, `product_colors`, `users`, `orders`, `order_items`.
+  - Thiết lập cơ chế toàn vẹn dữ liệu quan hệ với `PRAGMA foreign_keys = ON;`, ràng buộc khóa ngoại `ON DELETE RESTRICT` (ngăn xóa danh mục khi còn sản phẩm) và `ON DELETE CASCADE` (tự động xóa sạch ảnh, màu sắc, kích cỡ khi xóa sản phẩm).
+  - Cung cấp hơn 120 câu lệnh `INSERT` chuyển đổi toàn bộ 20 sản phẩm thời trang mẫu từ tệp nguồn `data/products.local.json` sang dữ liệu quan hệ chuẩn hóa (bao gồm đầy đủ tên, slug, giá bán, giá sale, mô tả, danh mục, phân loại màu sắc, bảng kích cỡ và đường dẫn nhiều hình ảnh tương ứng trong thư mục `images/`).
+  - Nạp sẵn tài khoản Quản trị viên (`admin` / `admin123`) và tài khoản Khách hàng mẫu (`khachhang` / `123456`) cùng các đơn hàng mẫu để kiểm thử ngay lập tức.
+  - Là mã nguồn tham chiếu trực tiếp để biên dịch ra tệp `data/schema.sql` và tệp nhị phân `data/hennishop.db`.
 
-#### 3. `ANTIGRAVITY_PROMPT_FRONTEND.md` (Hướng dẫn Kỹ thuật Kiến trúc Front-end)
-* **Mục đích**: Đóng vai trò là tài liệu chỉ dẫn kiến trúc hệ thống phục vụ kỹ thuật phát triển không backend.
-* **Vai trò**:
-  - Quy chuẩn viết mã JavaScript thuần module hóa: Tách biệt rõ ràng tầng Presentation, tầng Business Logic và tầng Data Access Layer.
-  - Hướng dẫn cơ chế kết nối thư viện `sql.js`, nạp file WASM và cơ chế lưu trữ bền bỉ với `localStorage`.
-  - Quy chuẩn xử lý DOM an toàn, chống lỗ hổng XSS bằng hàm `escapeHtml()`.
+#### 3. `SPEC_STOREFRONT_CLONE.md` (Bản Đặc tả Chi tiết Giao diện & Hành vi Tương tác Storefront)
+* **Tên tệp**: `SPEC_STOREFRONT_CLONE.md` (Kích thước: 8.9 KB, 141 dòng).
+* **Mục đích sử dụng**: Bản blueprint mô tả chi tiết pixel-perfect và hành vi tương tác động nhằm tái tạo trung thực 100% giao diện từ phiên bản mẫu React (`http://localhost:5173/`) sang phiên bản tĩnh thuần Front-end, sẵn sàng triển khai trên GitHub Pages.
+* **Công dụng & Vai trò thực tế trong dự án**:
+  - Đặc tả nguyên tắc thị giác Light Theme: Tông màu trắng tinh khôi (`#FFFFFF`), kết hợp các khối xám nhẹ (`#F9FAFB`, `#F3F4F6`), màu chữ đen than (`#111827`), nút bấm CTA và màu giá khuyến mãi thời trang (`#DC2626`).
+  - Định nghĩa bố cục khung toàn cục (Global Layout): Thanh thông báo đầu trang (Top Announcement Bar freeship 800k mốc 32px), Header Navbar dạng Sticky dính cố định phân chia 3 cụm (Logo - Menu - Actions), và Footer 4 cột đồng bộ.
+  - Mô tả chi tiết hành vi và bố cục từng màn hình: Hero Slider tự động trượt, khối danh mục nổi bật, thẻ sản phẩm có hiệu ứng Hover Flip (lật đổi sang ảnh thứ 2 khi di chuột), nút Quick Add mở modal chọn nhanh biến thể, bộ lọc đa năng sidebar, và thanh tiến trình freeship 800.000₫.
+  - Đóng vai trò là tiêu chuẩn nghiệm thu giao diện (Acceptance Test Criteria) giữa thiết kế mẫu và sản phẩm lập trình thực tế.
 
-#### 4. `INIT_DATABASE_SQLITE.sql.md` (Đặc tả Khởi tạo & Chuyển đổi CSDL)
-* **Mục đích**: Tài liệu hóa toàn bộ tập lệnh DDL tạo bảng và dữ liệu mẫu của 20 sản phẩm khởi đầu.
-* **Vai trò**:
-  - Chuyển đổi cấu trúc phi quan hệ từ tệp JSON cũ (`products.local.json`) sang mô hình quan hệ chuẩn hóa 3NF trên SQLite.
-  - Đảm bảo tính toàn vẹn khóa ngoại (*Foreign Key Constraints*), chỉ mục tìm kiếm (*Indexes*) và dữ liệu hạt giống (*Seed Data* cho users, categories, products, images, colors, sizes, orders).
+#### 4. `README.md` (Tài liệu Hướng dẫn Cài đặt, Khởi chạy & Vận hành Nền tảng)
+* **Tên tệp**: `README.md` (Kích thước: 19.6 KB, 344 dòng).
+* **Mục đích sử dụng**: Tài liệu nhập môn và cẩm nang kỹ thuật toàn diện cho lập trình viên, quản trị viên và người dùng khi tiếp cận mã nguồn dự án.
+* **Công dụng & Vai trò thực tế trong dự án**:
+  - Giới thiệu tổng quan định vị thương hiệu Henni Shop, ngôn ngữ thiết kế Minimalist Chic và kiến trúc Zero-Backend Dependency.
+  - Liệt kê chi tiết tính năng của cả 2 phân hệ Storefront (Khách hàng) và Admin CMS (Quản trị viên), phân tích tính năng phân tách giỏ hàng độc lập theo tài khoản (`henni_cart_user_<id>`).
+  - Bảng thông tin tài khoản đăng nhập mẫu và phân quyền truy cập hệ thống.
+  - Hướng dẫn chi tiết 3 phương thức cài đặt & khởi chạy dự án:
+    1. Chạy trực tiếp bằng cách mở file `index.html` trên trình duyệt (nhờ cơ chế CORS Fallback tự động).
+    2. Chạy qua Local Web Server (Python `http.server`, Node.js `http-server` hoặc VS Code Live Server).
+    3. Quy trình từng bước triển khai (Deploy) lên **GitHub Pages** hoàn toàn miễn phí.
+  - Giải thích quy trình nghiệp vụ mua hàng, xác thực mã đơn hàng duy nhất `HNyyMMdd-xxxx`, và thông tin liên hệ showroom thực tế.
 
-#### 5. `SPEC_STOREFRONT_CLONE.md` (Bản Đặc tả Chi tiết Giao diện & Tương tác)
-* **Mục đích**: Bản blueprint mô tả chi tiết pixel-perfect từng thành phần giao diện phỏng theo bản web mẫu chuẩn.
-* **Vai trò**:
-  - Mô tả chính xác từng thẻ HTML, vị trí logo, khoảng cách padding/margin.
-  - Đặc tả hành vi tương tác động: Hiệu ứng hover sản phẩm, popup chọn nhanh màu/size, thanh tiến trình freeship 800k, modal tra cứu đơn hàng và form đặt hàng.
+#### 5. `BAO_CAO_TONG_KET_DU_AN.md` (Báo cáo Kỹ thuật Tổng kết & Bàn giao Dự án Toàn diện)
+* **Tên tệp**: `BAO_CAO_TONG_KET_DU_AN.md` (Kích thước: 35.4 KB, 348 dòng).
+* **Mục đích sử dụng**: Bản báo cáo tổng kết kỹ thuật số hóa toàn diện, ghi nhận toàn bộ quá trình phát triển, kết quả nghiệm thu và căn cứ bàn giao hệ thống.
+* **Công dụng & Vai trò thực tế trong dự án**:
+  - Hệ thống hóa toàn bộ các khía cạnh kỹ thuật: Tổng quan thương hiệu, định hướng công nghệ Client-side WebAssembly, mô hình phân tầng kiến trúc 3 lớp.
+  - Phân tích chuyên sâu 10 trang màn hình trong dự án với sơ đồ luồng điều hướng người dùng (Mermaid Flowchart).
+  - Lập bảng ma trận tính năng nghiệp vụ đã hoàn thành cho 3 phân hệ: Storefront, SQLite Client-side và Admin CMS.
+  - Ghi nhận nhật ký tiến trình 5 Prompt tương tác then chốt (từ khảo sát, chuyển đổi DDL, kiểm thử GitHub Pages, clone UI đến lập báo cáo bàn giao) với sơ đồ Sequence Diagram trực quan.
+  - Đánh giá định lượng kết quả dự án (hiệu năng, chi phí vận hành 0đ, trải nghiệm UX/UI) và đề xuất lộ trình nâng cấp mở rộng trong tương lai.
+  - Là bản tham chiếu đối chiếu song song với tệp tài liệu Word chính thức `BAO_CAO_TONG_KET_DU_AN.docx`.
 
 ---
 
@@ -311,8 +328,8 @@ sequenceDiagram
     Dev->>AI: Prompt 4: Đặc tả & Hiện thực hóa giao diện chuẩn theo web mẫu
     AI->>Code: Xây dựng 10 trang HTML, hệ thống CSS Module, tương tác Quick Add
     
-    Dev->>AI: Prompt 5: Nâng cấp Admin, tối ưu giỏ hàng theo tài khoản & Báo cáo
-    AI->>Code: Hoàn thiện Chip màu/Pill size, Upload đa ảnh, Cart isolation & README
+    Dev->>AI: Prompt 5: Yêu cầu kết hợp bộ tài liệu và sinh prompt báo cáo tổng kết toàn diện
+    AI->>Code: Tổng hợp bộ 3 file tài liệu thành blueprint hoàn chỉnh, thiết lập cấu trúc báo cáo chi tiết
 ```
 
 ### Chi tiết các Prompt chính & Kết quả thực tế:
@@ -323,7 +340,7 @@ sequenceDiagram
 | **Prompt 2** | **Thiết lập cấu trúc kỹ thuật và chuyển đổi CSDL từ JSON sang SQLite:**<br>Xây dựng file khởi tạo dữ liệu, viết script chuyển đổi 20 sản phẩm thời trang mẫu kèm hình ảnh, màu sắc, size vào các câu lệnh SQL. | • Khởi tạo thành công tệp [`data/schema.sql`](file:///d:/Henni_Shop/data/schema.sql) và tệp nhị phân [`data/hennishop.db`](file:///d:/Henni_Shop/data/hennishop.db).<br>• Xây dựng tầng truy cập dữ liệu [`js/database.js`](file:///d:/Henni_Shop/js/database.js) hỗ trợ `query()`, `run()`, export và fallback an toàn. | Hoàn thành |
 | **Prompt 3** | **Đánh giá tính khả thi khi triển khai trên GitHub Pages:**<br>Đánh giá cơ chế chạy thực tế, phân tích 4 lưu ý kỹ thuật (đường dẫn tương đối, CDN sql-wasm, RAM vs localStorage, cơ chế xuất sao lưu). | • Chuẩn hóa 100% đường dẫn trong toàn bộ file HTML/CSS/JS thành relative paths.<br>• Tích hợp CDN ổn định cho WebAssembly sql.js (`cdnjs.cloudflare.com`).<br>• Xây dựng giải pháp tự động đồng bộ nhị phân SQLite vào `localStorage` giúp dữ liệu không bị mất khi F5 trình duyệt. | Hoàn thành |
 | **Prompt 4** | **Yêu cầu đặc tả giao diện phỏng theo bản web mẫu (localhost:5173):**<br>Hiện thực hóa giao diện chuẩn mực từng pixel cho Header, Footer, Hero slider, Danh mục, Lưới sản phẩm, Trang chi tiết, Giỏ hàng và Thanh toán. | • Hoàn thiện bộ 4 file CSS module hóa ([`base.css`](file:///d:/Henni_Shop/css/base.css), [`components.css`](file:///d:/Henni_Shop/css/components.css), [`pages.css`](file:///d:/Henni_Shop/css/pages.css), [`responsive.css`](file:///d:/Henni_Shop/css/responsive.css)).<br>• Triển khai thành công tính năng Quick Variant Picker trên ảnh sản phẩm.<br>• Đồng bộ Footer 4 cột chuẩn xác kèm địa chỉ showroom mới `3 Hòa Bình, Bình Thới, Hồ Chí Minh`. | Hoàn thành |
-| **Prompt 5** | **Nâng cấp Admin, phân tách Giỏ hàng theo tài khoản & Lập Báo cáo tổng kết:**<br>1. Phân tách giỏ hàng riêng biệt theo từng tài khoản.<br>2. Nâng cấp Admin Modal: bộ chọn màu dạng Chip, size dạng Pill, kéo thả upload nhiều ảnh qua Canvas.<br>3. Tạo tài liệu README.md và Báo cáo tổng kết kỹ thuật. | • Hoàn thiện hàm `getCartStorageKey()` phân tách giỏ hàng độc lập theo `user_id`.<br>• Xây dựng bộ công cụ upload & nén ảnh đa tệp trực tiếp trong Admin.<br>• Tạo thành công tài liệu [`README.md`](file:///d:/Henni_Shop/README.md) và tệp [`BAO_CAO_TONG_KET_DU_AN.md`](file:///d:/Henni_Shop/BAO_CAO_TONG_KET_DU_AN.md). | Hoàn thành |
+| **Prompt 5** | **Yêu cầu kết hợp bộ tài liệu và sinh prompt báo cáo tổng kết toàn diện:**<br>Tổng hợp toàn bộ các kết quả kỹ thuật, sơ đồ kiến trúc và bộ 3 tài liệu thành blueprint hoàn chỉnh để lập báo cáo tổng kết dự án chuyên nghiệp. | • Tổng hợp bộ 3 file tài liệu thành blueprint hoàn chỉnh và thiết lập cấu trúc báo cáo chi tiết.<br>• Hoàn thiện tài liệu [`README.md`](file:///d:/Henni_Shop/README.md) và tạo lập file báo cáo tổng kết kỹ thuật [`BAO_CAO_TONG_KET_DU_AN.docx`](file:///d:/Henni_Shop/BAO_CAO_TONG_KET_DU_AN.docx) chuẩn mực phục vụ bàn giao. | Hoàn thành |
 
 ---
 
